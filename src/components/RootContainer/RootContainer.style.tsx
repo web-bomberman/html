@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { colors, fonts } from 'themes';
 
 export const Container = styled.div`
   position: absolute;
@@ -9,7 +10,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
-  background: linear-gradient(to bottom right, var(--bgcolor1), var(--bgcolor2));
+  background: ${colors.background};
   background-position: center;
   background-repeat: no-repeat;
 `;
@@ -28,9 +29,9 @@ export const PageContainer = styled.div`
 export const BottomText = styled.div`
   width: 100%;
   margin: 64px 0px 24px 0px;
-  font-family: var(--scriptfont);
+  font-family: ${fonts.script};
   font-weight: 300;
   font-size: 12px;
-  color: var(--textcolor2);
+  color: ${colors.halfContrast};
   text-align: center;
 `;
