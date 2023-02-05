@@ -1,5 +1,15 @@
 import { AxiosRequestConfig } from 'axios';
 
+export type ContainerProps = {
+  bordered?: boolean;
+  noBackground?: boolean;
+  blur?: string;
+  margin?: string;
+  width?: string;
+  height?: string;
+  extra?: string;
+}
+
 export type UseRequestResponse<Type> = {
   status: number;
   data: Type;

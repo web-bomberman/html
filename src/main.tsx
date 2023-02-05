@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import ReactDOM from 'react-dom/client';
+import { App } from './App';
+import { Providers } from 'components';
+import '@fontsource/roboto';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  <Providers>
     <App />
-  </React.StrictMode>,
+  </Providers>
 )
