@@ -7,7 +7,6 @@ export type ContainerProps = {
   margin?: string;
   width?: string;
   height?: string;
-  extra?: string;
 }
 
 export type UseRequestResponse<Type> = {

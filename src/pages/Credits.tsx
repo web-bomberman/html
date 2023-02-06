@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { css } from '@emotion/react';
 import { Typography, Button } from '@mui/material';
 import { colors } from 'themes';
 
@@ -11,6 +12,12 @@ export function Credits() {
         href={props.url}
         target='_blank'
         style={{ color: colors.secondary }}
+        css={css`
+          color: ${colors.secondary};
+          &:hover {
+            text-decoration: underline;
+          }
+        `}
       >
         {props.text}
       </a>

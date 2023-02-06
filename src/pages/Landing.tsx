@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Typography, Button } from '@mui/material';
-
-import { ButtonsContainer } from './Landing.style';
+import { css } from '@emotion/react';
 
 export function Landing() {
   return (
@@ -25,7 +24,19 @@ export function Landing() {
         Welcome. This is the Web Bomberman project, where you can play
         bomberman on your browser with a friend.
       </Typography>
-      <ButtonsContainer>
+      <div
+        css={css`
+          width: 800px;
+          margin-top: 128px;
+          display: flex;
+          justify-content: space-between;
+          padding: 0px 32px;
+          @media (max-width: 800px) {
+            width: 100%;
+            flex-direction: column;
+          }
+        `}
+      >
         <Button
           variant='outlined'
           size='large'
@@ -48,9 +59,8 @@ export function Landing() {
           sx={{ margin: '8px 0px' }}
         >
           Credits
-      </Button>
-      </ButtonsContainer>
-      
+        </Button>
+      </div>
     </>
   );
 }

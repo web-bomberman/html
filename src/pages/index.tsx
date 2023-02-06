@@ -1,2 +1,2 @@
-export * from './Credits/Credits';
-export * from './Landing/Landing';
+export * from './Credits';
+export * from './Landing';
