@@ -1,9 +1,34 @@
-import { Link } from 'react-router-dom';
+import { useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Typography, Button } from '@mui/material';
+import { useAlert } from 'react-styled-alert';
+import { Typography, Button, TextField } from '@mui/material';
 import { css } from '@emotion/react';
 
 export function Landing() {
+  const inputRef = useRef<HTMLInputElement>();
+  const navigate = useNavigate();
+  const alert = useAlert();
+
+  const handleFindGame = () => {
+    alert(
+      <TextField
+        id='find-game'
+        label='Game session ID'
+        type='text'
+        variant='outlined'
+        margin='normal'
+        inputRef={inputRef}
+        fullWidth
+        autoFocus
+      />,
+      () => {
+        if (inputRef.current) navigate(`/session/${inputRef.current.value}`);
+      },
+      () => {}
+    );
+  };
+
   return (
     <>
       <Helmet>
@@ -47,6 +72,7 @@ export function Landing() {
         <Button
           variant='outlined'
           size='large'
+          onClick={handleFindGame}
           sx={{ margin: '8px 0px' }}
         >
           Find Game

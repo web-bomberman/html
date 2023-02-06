@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { colors } from 'themes';
 import { ContainerProps } from 'types';
 
 export function Container(props: React.PropsWithChildren<ContainerProps>) {
@@ -20,7 +21,7 @@ export function Container(props: React.PropsWithChildren<ContainerProps>) {
         width: ${width ? width : '800px'};
         margin: ${margin ? margin : 'none'};
         background-color: ${noBackground ? 'transparent' : '#ffffff10'};
-        border: ${bordered ? 'solid 1px #ffffff30' : 'none'};
+        border: ${bordered ? `solid 1px ${colors.halfPrimary}` : 'none'};
         backdrop-filter: ${blur ? `blur(${blur})` : 'none'};
         @media (max-width: 800px) {
           width: 100%;
