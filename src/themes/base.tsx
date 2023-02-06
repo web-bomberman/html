@@ -3,17 +3,21 @@ import { createTheme, ThemeProvider } from '@mui/material';
 
 export const colors = {
   primary: '#17c917',
+  halfPrimary: '#17c91750',
   secondary: '#10f0f0',
+  halfSecondary: '#10f0f050',
   tertiary: '#f1b32b',
+  halfTertiary: '#f1b32b50',
   error: '#e44040',
+  halfError: '#e4404050',
   contrast: '#ffffff',
-  halfContrast: '#b3b7b9',
+  halfContrast: '#ffffff50',
   background: '#0c140c'
 };
 
 export const fonts = {
-  display: 'Bebas Neue',
-  script: 'Roboto'
+  display: 'Goldman',
+  script: 'Tomorrow'
 };
 
 const theme = createTheme({
@@ -32,10 +36,47 @@ const theme = createTheme({
       contrastText: colors.background
     },
     text: {
-      primary: colors.contrast,
-      secondary: colors.halfContrast,
+      primary: colors.primary,
+      secondary: colors.halfPrimary,
       disabled: 'rgba(0, 0, 0, 0.3)'
     }
+  },
+  components: {
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'contained' },
+          style: { fontFamily: fonts.display }
+        },
+        {
+          props: { variant: 'outlined' },
+          style: { fontFamily: fonts.display }
+        }
+      ]
+    }
+  },
+  typography: {
+    fontFamily: fonts.script,
+    h1: {
+      fontFamily: fonts.display,
+      fontVariant: 'small-caps'
+    },
+    h2: {
+      fontFamily: fonts.display,
+      fontVariant: 'small-caps'
+    },
+    h3: {
+      fontFamily: fonts.display,
+      fontVariant: 'small-caps'
+    },
+    h4: {
+      fontFamily: fonts.display,
+      fontVariant: 'small-caps'
+    },
+    h5: {
+      fontFamily: fonts.display,
+      fontVariant: 'small-caps'
+    },
   }
 });
 

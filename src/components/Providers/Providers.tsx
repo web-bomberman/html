@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 import { AlertProvider } from 'react-styled-alert';
 import { TokenProvider } from 'contexts';
+import { MUIThemeProvider } from 'themes';
 
 export function Providers(props: { children: ReactNode }) {
   return (
@@ -10,7 +11,9 @@ export function Providers(props: { children: ReactNode }) {
       <BrowserRouter>
         <AlertProvider>
           <TokenProvider>
-            {props.children}
+            <MUIThemeProvider>
+              {props.children}
+            </MUIThemeProvider>
           </TokenProvider>
         </AlertProvider>
       </BrowserRouter>

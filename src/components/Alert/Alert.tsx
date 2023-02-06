@@ -9,7 +9,7 @@ export function Alert() {
 
   return (
     <Background>
-      <Container width='420px' bordered extra='backdrop-filter: blur(3px)'>
+      <Container width='420px' blur='3px' bordered>
         <Typography variant='body1' color='text.primary'>
           {data.content}
         </Typography>

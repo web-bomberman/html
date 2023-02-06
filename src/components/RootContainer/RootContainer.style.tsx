@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { colors, fonts } from 'themes';
+import { colors } from 'themes';
 
 export const Container = styled.div`
   position: absolute;
@@ -24,14 +24,4 @@ export const PageContainer = styled.div`
   @media (max-width: 1024px) {
     width: 100%;
   }
-`;
-
-export const BottomText = styled.div`
-  width: 100%;
-  margin: 64px 0px 24px 0px;
-  font-family: ${fonts.script};
-  font-weight: 300;
-  font-size: 12px;
-  color: ${colors.halfContrast};
-  text-align: center;
 `;
