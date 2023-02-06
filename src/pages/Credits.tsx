@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { css } from '@emotion/react';
 import { Typography, Button } from '@mui/material';
+import { useRoute } from 'hooks';
 import { colors } from 'themes';
 
 export function Credits() {
+  const { changeRoute } = useRoute();
 
   const Anchor = (props: { url: string, text: string }) => {
     return (
@@ -73,8 +74,7 @@ export function Credits() {
         variant='outlined'
         color='primary'
         size='large'
-        component={Link}
-        to='/'
+        onClick={() => changeRoute('/')}
         sx={{ marginTop: '64px' }}
       >
         Back to the main page

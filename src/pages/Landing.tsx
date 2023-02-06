@@ -1,14 +1,14 @@
 import { useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useAlert } from 'react-styled-alert';
+import { useRoute } from 'hooks';
 import { Typography, Button, TextField } from '@mui/material';
 import { css } from '@emotion/react';
 
 export function Landing() {
-  const inputRef = useRef<HTMLInputElement>();
-  const navigate = useNavigate();
+  const ref = useRef<HTMLInputElement>();
   const alert = useAlert();
+  const { changeRoute } = useRoute();
 
   const handleFindGame = () => {
     alert(
@@ -18,12 +18,12 @@ export function Landing() {
         type='text'
         variant='outlined'
         margin='normal'
-        inputRef={inputRef}
+        inputRef={ref}
         fullWidth
         autoFocus
       />,
       () => {
-        if (inputRef.current) navigate(`/session/${inputRef.current.value}`);
+        if (ref.current) changeRoute(`/session/${ref.current.value}`);
       },
       () => {}
     );
@@ -80,8 +80,7 @@ export function Landing() {
         <Button
           variant='outlined'
           size='large'
-          component={Link}
-          to='/credits'
+          onClick={() => changeRoute('/credits')}
           sx={{ margin: '8px 0px' }}
         >
           Credits

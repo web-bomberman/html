@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography } from '@mui/material';
 import { css } from '@emotion/react';
+import { useObserve } from 'react-observer-implementation';
 import { colors } from 'themes';
 
 export function RootContainer(props: { children: React.ReactNode }) {
+  const [transitioning, setTransitioning] = useState<boolean>(false);
+
+  useObserve(
+    'route_changing',
+    () => setTransitioning(true)
+  );
+
+  useObserve(
+    'route_changed',
+    () => setTransitioning(false)
+  )
+
   return (
     <div
       css={css`
@@ -15,6 +28,7 @@ export function RootContainer(props: { children: React.ReactNode }) {
         flex-direction: column;
         align-items: center;
         overflow-y: scroll;
+        overflow-x: hidden;
         background: ${colors.background};
         background-position: center;
         background-repeat: no-repeat;
@@ -27,6 +41,10 @@ export function RootContainer(props: { children: React.ReactNode }) {
           display: flex;
           flex-direction: column;
           align-items: center;
+          opacity: ${transitioning ? '0' : '1'};
+          transform: ${transitioning ?
+            'translateX(50%)' : 'translateX(0px)'};
+          transition: transform 0.3s, opacity 0.3s;
           @media (max-width: 1024px) {
             width: 100%;
           }

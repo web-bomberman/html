@@ -9,6 +9,11 @@ export type ContainerProps = {
   height?: string;
 }
 
+export type UseRouteResponse = {
+  route: string;
+  changeRoute: (newRoute: string) => void;
+}
+
 export type UseRequestResponse<Type> = {
   status: number;
   data: Type;
