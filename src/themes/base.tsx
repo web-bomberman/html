@@ -1,7 +1,5 @@
 import { ReactNode } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { css } from '@emotion/react';
-import { green } from '@mui/material/colors';
 
 export const colors = {
   primary: '#17c917',

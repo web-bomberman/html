@@ -62,12 +62,12 @@ export function Credits() {
       >
         <Anchor
           text="Web page's repository"
-          url='https://github/web-bomberman/web'
+          url='https://github.com/web-bomberman/web'
         />
         <br/>
         <Anchor
           text="API's repository"
-          url='https://github/web-bomberman/api'
+          url='https://github.com/web-bomberman/api'
         />
       </Typography>
       <Button
