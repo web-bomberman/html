@@ -20,10 +20,8 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^1.3.0",
-    "react-icons": "^4.7.1",
     "react-observer-implementation": "^1.0.1",
     "react-router-dom": "^6.8.0",
-    "react-spinners": "^0.13.8",
     "react-style-reset": "^1.3.2",
     "react-styled-alert": "^1.0.7"
   },
