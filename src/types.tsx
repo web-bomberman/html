@@ -1,5 +1,38 @@
 import { AxiosRequestConfig } from 'axios';
 
+export type Vector = [number, number]
+
+export type PlayerState =
+| 'waiting'
+| 'not ready'
+| 'ready'
+| 'connected'
+| 'reconnecting'
+| 'disconnected'
+
+export type SessionState = 
+  | 'room'
+  | 'starting'
+  | 'running'
+  | 'paused'
+  | 'over'
+
+export type GameObjectData = {
+  id: number | null;
+  type: string;
+  position: Vector;
+  extras: string[];
+}
+
+export type GameData = {
+  id: string;
+  state: SessionState;
+  player1: PlayerState;
+  player2: PlayerState;
+  size: Vector;
+  gameObjects: GameObjectData[];
+}
+
 export type ContainerProps = {
   bordered?: boolean;
   noBackground?: boolean;
@@ -7,17 +40,6 @@ export type ContainerProps = {
   margin?: string;
   width?: string;
   height?: string;
-}
-
-export type UseLoadingResponse = {
-  isLoading: () => boolean;
-  startLoading: () => void;
-  stopLoading: () => void;
-}
-
-export type UseRouteResponse = {
-  route: string;
-  changeRoute: (newRoute: string) => void;
 }
 
 export type UseRequestResponse<Type> = {

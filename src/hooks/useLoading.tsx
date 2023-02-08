@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { LoadingContext } from 'contexts';
-import { UseLoadingResponse } from 'types';
 
 export function useLoading() {
   const { loading, setLoading } = useContext(LoadingContext);
@@ -17,5 +16,13 @@ export function useLoading() {
     setLoading(false);
   }
 
-  return { isLoading, startLoading, stopLoading } as UseLoadingResponse;
+  return {
+    isLoading,
+    startLoading,
+    stopLoading
+  } as {
+    isLoading: () => boolean;
+    startLoading: () => void;
+    stopLoading: () => void;
+  };
 }

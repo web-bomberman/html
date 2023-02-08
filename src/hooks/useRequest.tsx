@@ -63,6 +63,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
     config?: AxiosRequestConfig<any>,
   ) => {
     setLoading(true);
+    aborters.current.get.abort();
     axios
       .get(url, { ...config, signal: aborters.current.get.signal })
       .then(thenFunc(thenFn))
@@ -76,6 +77,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
     config?: AxiosRequestConfig<any>,
   ) => {
     setLoading(true);
+    aborters.current.post.abort();
     axios
       .post(url, body, { ...config, signal: aborters.current.post.signal })
       .then(thenFunc(thenFn))
@@ -89,6 +91,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
     config?: AxiosRequestConfig<any>,
   ) => {
     setLoading(true);
+    aborters.current.patch.abort();
     axios
       .patch(url, body, { ...config, signal: aborters.current.patch.signal })
       .then(thenFunc(thenFn))
@@ -102,6 +105,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
     config?: AxiosRequestConfig<any>,
   ) => {
     setLoading(true);
+    aborters.current.put.abort();
     axios
       .put(url, body, { ...config, signal: aborters.current.put.signal })
       .then(thenFunc(thenFn))
@@ -114,6 +118,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
     config?: AxiosRequestConfig<any>,
   ) => {
     setLoading(true);
+    aborters.current.delete.abort();
     axios
       .delete(url, { ...config, signal: aborters.current.delete.signal })
       .then(thenFunc(thenFn))
