@@ -22,6 +22,11 @@ export function Landing() {
         inputRef={ref}
         fullWidth
         autoFocus
+        onKeyDown={(e) => {
+          if (e.key !== 'Enter') return;
+          const okButton = document.getElementById('alert-ok');
+          okButton?.click();
+        }}
       />,
       () => {
         if (ref.current) changeRoute(`/session/${ref.current.value}`);

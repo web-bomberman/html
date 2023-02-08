@@ -35,6 +35,7 @@ export function Alert() {
           `}
         >
           <Button
+            id='alert-ok'
             onClick={data.onOk}
             color='primary'
             variant='contained'
@@ -43,6 +44,7 @@ export function Alert() {
           </Button>
           {data.onCancel ? (
             <Button
+              id='alert-cancel'
               onClick={data.onCancel}
               color='success'
               variant='outlined'
