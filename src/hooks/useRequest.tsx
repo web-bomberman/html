@@ -1,11 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { UseRequestResponse, UseRequestError, UseRequestReturn } from 'types';
+import {
+  UseRequestResponse,
+  UseRequestError,
+  UseRequestAborters,
+  UseRequestReturn
+} from 'types';
 
 const API_URL: string = import.meta.env.VITE_API_URL as string;
 
 export function useRequest<Type>(route: string): UseRequestReturn<Type> {
   const [loading, setLoading] = useState<boolean>(false);
+  const aborters = useRef<UseRequestAborters>({
+    get: new AbortController(),
+    post: new AbortController(),
+    put: new AbortController(),
+    patch: new AbortController(),
+    delete: new AbortController()
+  });
+
+  useEffect(() => {
+    return () => {
+      aborters.current.get.abort();
+      aborters.current.post.abort();
+      aborters.current.patch.abort();
+      aborters.current.put.abort();
+      aborters.current.delete.abort();
+    };
+  }, [])
 
   const url = API_URL + route;
   
@@ -42,7 +64,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
   ) => {
     setLoading(true);
     axios
-      .get(url, config)
+      .get(url, { ...config, signal: aborters.current.get.signal })
       .then(thenFunc(thenFn))
       .catch(catchFunc(catchFn));
   };
@@ -55,7 +77,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
   ) => {
     setLoading(true);
     axios
-      .post(url, body, config)
+      .post(url, body, { ...config, signal: aborters.current.post.signal })
       .then(thenFunc(thenFn))
       .catch(catchFunc(catchFn));
   };
@@ -68,7 +90,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
   ) => {
     setLoading(true);
     axios
-      .post(url, body, config)
+      .patch(url, body, { ...config, signal: aborters.current.patch.signal })
       .then(thenFunc(thenFn))
       .catch(catchFunc(catchFn));
   };
@@ -81,7 +103,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
   ) => {
     setLoading(true);
     axios
-      .post(url, body, config)
+      .put(url, body, { ...config, signal: aborters.current.put.signal })
       .then(thenFunc(thenFn))
       .catch(catchFunc(catchFn));
   };
@@ -93,7 +115,7 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
   ) => {
     setLoading(true);
     axios
-      .post(url, config)
+      .delete(url, { ...config, signal: aborters.current.delete.signal })
       .then(thenFunc(thenFn))
       .catch(catchFunc(catchFn));
   };

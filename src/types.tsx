@@ -30,34 +30,42 @@ export type UseRequestError = {
   message: string;
 }
 
+export type UseRequestAborters = {
+  get: AbortController;
+  post: AbortController;
+  put: AbortController;
+  patch: AbortController;
+  delete: AbortController;
+}
+
 export type UseRequestReturn<Type> = {
-  loading: boolean,
+  loading: boolean;
   get: (
     thenFn: (res: UseRequestResponse<Type>) => void,
     catchFn: (err: UseRequestError) => void,
     config?: AxiosRequestConfig<any>
-  ) => void,
+  ) => void;
   post: (
     body: object,
     thenFn: (res: UseRequestResponse<Type>) => void,
     catchFn: (err: UseRequestError) => void,
     config?: AxiosRequestConfig<any>
-  ) => void,
+  ) => void;
   put: (
     body: object,
     thenFn: (res: UseRequestResponse<Type>) => void,
     catchFn: (err: UseRequestError) => void,
     config?: AxiosRequestConfig<any>
-  ) => void,
+  ) => void;
   patch: (
     body: object,
     thenFn: (res: UseRequestResponse<Type>) => void,
     catchFn: (err: UseRequestError) => void,
     config?: AxiosRequestConfig<any>
-  ) => void,
+  ) => void;
   delete: (
     thenFn: (res: UseRequestResponse<Type>) => void,
     catchFn: (err: UseRequestError) => void,
     config?: AxiosRequestConfig<any>
-  ) => void
+  ) => void;
 }
