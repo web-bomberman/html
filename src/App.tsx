@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Alert, RootContainer } from 'components';
-import { Landing, Credits } from 'pages';
+import { Landing, Credits, Session } from 'pages';
 
 export function App() {
   return (
@@ -8,7 +8,7 @@ export function App() {
       <RootContainer>
         <Routes>
           <Route path='/' element={<Landing />} />
-          <Route path='/session/:sessionId' element={<></>} />
+          <Route path='/session/:sessionId' element={<Session />} />
           <Route path='/credits' element={<Credits />} />
         </Routes>
       </RootContainer>

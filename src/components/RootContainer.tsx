@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Typography } from '@mui/material';
 import { css } from '@emotion/react';
 import { useObserve } from 'react-observer-implementation';
+import { Loading } from 'components';
+import { useLoading } from 'hooks';
 import { colors } from 'themes';
 
 export function RootContainer(props: { children: React.ReactNode }) {
   const [transitioning, setTransitioning] = useState<boolean>(false);
+  const { isLoading } = useLoading();
 
   useObserve(
     'route_changing',
@@ -23,7 +26,6 @@ export function RootContainer(props: { children: React.ReactNode }) {
         position: absolute;
         height: 100vh;
         width: 100vw;
-        padding-top: 64px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -50,7 +52,7 @@ export function RootContainer(props: { children: React.ReactNode }) {
           }
         `}
       >
-        {props.children}
+        {isLoading() ? <Loading /> : props.children}
       </div>
       <Typography
         variant='body2'

@@ -9,6 +9,12 @@ export type ContainerProps = {
   height?: string;
 }
 
+export type UseLoadingResponse = {
+  isLoading: () => boolean;
+  startLoading: () => void;
+  stopLoading: () => void;
+}
+
 export type UseRouteResponse = {
   route: string;
   changeRoute: (newRoute: string) => void;

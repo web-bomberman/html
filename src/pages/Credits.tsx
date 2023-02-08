@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet';
 import { css } from '@emotion/react';
 import { Typography, Button } from '@mui/material';
 import { useRoute } from 'hooks';
@@ -27,12 +26,10 @@ export function Credits() {
 
   return (
     <>
-      <Helmet>
-        Web Bomberman - Credits
-      </Helmet>
       <Typography
         variant='h2'
         color='text.primary'
+        sx={{ marginTop: '64px' }}
       >
         Credits
       </Typography>

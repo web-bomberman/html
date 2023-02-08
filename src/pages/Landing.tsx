@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import { Helmet } from 'react-helmet';
 import { useAlert } from 'react-styled-alert';
 import { useRoute } from 'hooks';
+import { useNewSession } from 'api';
 import { Typography, Button, TextField } from '@mui/material';
 import { css } from '@emotion/react';
 
@@ -9,6 +9,7 @@ export function Landing() {
   const ref = useRef<HTMLInputElement>();
   const alert = useAlert();
   const { changeRoute } = useRoute();
+  const newSession = useNewSession();
 
   const handleFindGame = () => {
     alert(
@@ -31,13 +32,10 @@ export function Landing() {
 
   return (
     <>
-      <Helmet>
-        <title>Web Bomberman</title>
-      </Helmet>
       <Typography
         variant='h2'
         color='text.primary'
-        sx={{ textAlign: 'center' }}
+        sx={{ textAlign: 'center', marginTop: '64px' }}
       >
         Web Bomberman
       </Typography>
@@ -65,6 +63,7 @@ export function Landing() {
         <Button
           variant='outlined'
           size='large'
+          onClick={newSession}
           sx={{ margin: '8px 0px' }}
         >
           Create Game
