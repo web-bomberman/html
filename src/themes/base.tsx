@@ -6,8 +6,6 @@ export const colors = {
   halfPrimary: '#17c91750',
   secondary: '#10f0f0',
   halfSecondary: '#10f0f050',
-  tertiary: '#f1b32b',
-  halfTertiary: '#f1b32b50',
   error: '#e44040',
   halfError: '#e4404050',
   contrast: '#ffffff',

@@ -1,12 +1,19 @@
 import { useGetSession } from 'api';
 import { useRoute } from 'hooks';
-import { Container } from 'components';
+import { Container, SessionRoom } from 'components';
 import { css } from '@emotion/react';
 import { Typography, Button } from '@mui/material';
 
 export function Session() {
-  const [game, error, reconnecting] = useGetSession();
+  const [game, player, error, reconnecting] = useGetSession();
   const { changeRoute } = useRoute();
+
+  const sessionComp = {
+    room: <SessionRoom player={player} game={game} />,
+    starting: <></>,
+    running: <></>,
+    reconnecting: <></>,
+  };
 
   if (error) return (
     <>
@@ -37,6 +44,10 @@ export function Session() {
       >
         Game Session
       </Typography>
+      { game.state === 'room' ? 
+        <SessionRoom player={player} game={game} /> :
+        <></>
+      }
       { reconnecting ? 
         <div
           css={css`
