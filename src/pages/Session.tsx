@@ -12,7 +12,8 @@ export function Session() {
     room: <SessionRoom player={player} game={game} />,
     starting: <></>,
     running: <></>,
-    reconnecting: <></>,
+    paused: <></>,
+    over: <></>
   };
 
   if (error) return (
@@ -44,10 +45,7 @@ export function Session() {
       >
         Game Session
       </Typography>
-      { game.state === 'room' ? 
-        <SessionRoom player={player} game={game} /> :
-        <></>
-      }
+      {sessionComp[game.state]}
       { reconnecting ? 
         <div
           css={css`

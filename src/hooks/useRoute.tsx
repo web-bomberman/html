@@ -14,8 +14,6 @@ export function useRoute() {
   useTimeout(() => {
     navigate(newRoute);
     finishTransition();
-    setTimer(0);
-    setNewRoute('');
   }, timer ? timer : null);
 
   const changeRoute = (route: string) => {

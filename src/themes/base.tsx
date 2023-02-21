@@ -56,6 +56,18 @@ const theme = createTheme({
       styleOverrides: {
         notchedOutline: { borderColor: colors.halfPrimary }
       }
+    },
+    MuiCheckbox: {
+      variants: [
+        {
+          props: { color: 'secondary' },
+          style: { color: colors.halfSecondary }
+        },
+        {
+          props: { color: 'error' },
+          style: { color: colors.halfError }
+        }
+      ]
     }
   },
   typography: {

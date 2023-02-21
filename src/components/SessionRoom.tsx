@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { colors } from 'themes';
 import { GameData } from 'types';
 import Player1 from 'assets/player1.gif';
 import Player2 from 'assets/player2.gif';
@@ -14,7 +15,8 @@ import {
   Checkbox,
   SelectChangeEvent,
   FormGroup,
-  FormControlLabel
+  FormControlLabel,
+  FormControl
 } from '@mui/material';
 
 
@@ -24,7 +26,7 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
   const { sessionId } = useParams();
 
   const handleReady = (e: SelectChangeEvent<boolean>) => {
-    setReady(e.target.value as boolean);
+    setReady((prev) => !prev);
   };
 
   return (
@@ -37,27 +39,30 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
     `}>
       <div css={css`
         width: 100%;
+        margin: 32px 0px;
         display: flex;
         justify-content: space-between;
       `}>
         <Typography variant='body1' color='text.primary'>
           {`Session ID: ${sessionId}`}
         </Typography>
-        <InputLabel color='primary' id='level-label'>
-          Level
-        </InputLabel>
-        <Select
-          id='level-select'
-          labelId='level-label'
-          label='Level'
-          value={level}
-          color='primary'
-          onChange={(e) => setLevel(e.target.value as number)}
-        >
-          <MenuItem value={0}>Basic</MenuItem>
-          <MenuItem value={1}>Something</MenuItem>
-          <MenuItem value={2}>Other thing</MenuItem>
-        </Select>
+        <FormControl sx={{ minWidth: '200px' }}>
+          <InputLabel color='primary' id='level-label'>
+            Level
+          </InputLabel>
+          <Select
+            id='level-select'
+            labelId='level-label'
+            label='Level'
+            value={level}
+            color='primary'
+            onChange={(e) => setLevel(e.target.value as number)}
+          >
+            <MenuItem value={0}>Basic</MenuItem>
+            <MenuItem value={1}>Something</MenuItem>
+            <MenuItem value={2}>Other thing</MenuItem>
+          </Select>
+        </FormControl>
       </div>  
       <div css={css`
         width: 100%;
@@ -76,6 +81,8 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
             src={Player1}
             css={css`
               width: 64px;
+              margin: 16px 0px;
+              image-rendering: pixelated;
             `}
           />
           {props.player === 1 ? (
@@ -86,7 +93,7 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
               <FormGroup>
                 <FormControlLabel
                   label='Ready'
-                  color='secondary'
+                  sx={{ color: colors.secondary }}
                   control={
                     <Checkbox
                       color='secondary'
@@ -112,6 +119,7 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
             css={css`
               width: 64px;
               margin: 16px 0px;
+              image-rendering: pixelated;
             `}
           />
           {props.player === 2 ? (
@@ -122,7 +130,7 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
               <FormGroup>
                 <FormControlLabel
                   label='Ready'
-                  color='error'
+                  sx={{ color: colors.error }}
                   control={
                     <Checkbox
                       color='error'

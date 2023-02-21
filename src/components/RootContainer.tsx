@@ -52,7 +52,17 @@ export function RootContainer(props: { children: React.ReactNode }) {
           }
         `}
       >
-        {isLoading() ? <Loading /> : props.children}
+        {isLoading() ? <Loading /> : <></>}
+        <div
+          css={css`
+            width: 100%;
+            display: ${isLoading() ? 'none' : 'flex'};
+            flex-direction: column;
+            align-items: center;
+          `}
+        >
+          {props.children}
+        </div>
       </div>
       <Typography
         variant='body2'
