@@ -14,7 +14,6 @@ export type SessionState =
   | 'room'
   | 'starting'
   | 'running'
-  | 'paused'
   | 'over'
 
 export type GameObjectData = {

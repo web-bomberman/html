@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { SessionRoomPlayer } from 'components';
 import { colors } from 'themes';
 import { GameData } from 'types';
 import Player1 from 'assets/player1.gif';
@@ -67,82 +68,21 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
       <div css={css`
         width: 100%;
         display: flex;
+        padding: 0 64px;
         justify-content: space-between;
       `}>
-        <div css={css`
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        `}>
-          <Typography variant='body1' color='secondary'>
-            Player 1
-          </Typography>
-          <img
-            src={Player1}
-            css={css`
-              width: 64px;
-              margin: 16px 0px;
-              image-rendering: pixelated;
-            `}
-          />
-          {props.player === 1 ? (
-            <>
-              <Typography variant='body1' color='secondary'>
-                YOU
-              </Typography>
-              <FormGroup>
-                <FormControlLabel
-                  label='Ready'
-                  sx={{ color: colors.secondary }}
-                  control={
-                    <Checkbox
-                      color='secondary'
-                      checked={ready}
-                      onChange={handleReady}
-                    />
-                  }
-                />
-              </FormGroup>
-            </>
-          ) : <></>}
-        </div>
-        <div css={css`
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        `}>
-          <Typography variant='body1' color='error'>
-            Player 2
-          </Typography>
-          <img
-            src={Player2}
-            css={css`
-              width: 64px;
-              margin: 16px 0px;
-              image-rendering: pixelated;
-            `}
-          />
-          {props.player === 2 ? (
-            <>
-              <Typography variant='body1' color='error'>
-                YOU
-              </Typography>
-              <FormGroup>
-                <FormControlLabel
-                  label='Ready'
-                  sx={{ color: colors.error }}
-                  control={
-                    <Checkbox
-                      color='error'
-                      checked={ready}
-                      onChange={handleReady}
-                    />
-                  }
-                />
-              </FormGroup>
-            </>
-          ) : <></>}
-        </div>
+        <SessionRoomPlayer
+          variant={1}
+          player={props.player}
+          player1State={props.game.player1}
+          player2State={props.game.player2}
+        />
+        <SessionRoomPlayer
+          variant={2}
+          player={props.player}
+          player1State={props.game.player1}
+          player2State={props.game.player2}
+        />
       </div>
     </div>
   );

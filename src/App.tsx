@@ -8,8 +8,8 @@ export function App() {
       <RootContainer>
         <Routes>
           <Route path='/' element={<Landing />} />
-          <Route path='/session/:sessionId' element={<Session />} />
           <Route path='/credits' element={<Credits />} />
+          <Route path='/:sessionId' element={<Session />} />
         </Routes>
       </RootContainer>
       <Alert />

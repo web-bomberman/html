@@ -18,7 +18,7 @@ export function useNewSession() {
   const api = useRequest<{ session: string }>('/sessions/new');
 
   useEffect(() => {
-    if (sessionId && transitioned) navigate(`/session/${sessionId}`);
+    if (sessionId && transitioned) navigate(`/${sessionId}`);
   }, [sessionId, transitioned]);
 
   useTimeout(() => {

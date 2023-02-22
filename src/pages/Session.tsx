@@ -12,7 +12,6 @@ export function Session() {
     room: <SessionRoom player={player} game={game} />,
     starting: <></>,
     running: <></>,
-    paused: <></>,
     over: <></>
   };
 
@@ -55,16 +54,36 @@ export function Session() {
             left: 0px;
             right: 0px;
             z-index: 5;
-            background-color: rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
           `}
         >
-          <Container blur='3px' bordered>
-            <Typography variant='body1' color='text.primary'>
-              Reconnecting...
-            </Typography>
+          <Container blur='3px' width='200px' bordered>
+            <div
+              css={css`
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+              `}
+            >
+              <Typography
+                variant='body1'
+                color='text.primary'
+                textAlign='center'
+              >
+                Reconnecting...
+              </Typography>
+              <Button
+                variant='outlined'
+                color='error'
+                sx={{ marginTop: '32px' }}
+                onClick={() => changeRoute('/')}
+              >
+                Leave Game
+              </Button>
+            </div>
           </Container>
         </div> :
         <></>

@@ -29,7 +29,7 @@ export function Landing() {
         }}
       />,
       () => {
-        if (ref.current) changeRoute(`/session/${ref.current.value}`);
+        if (ref.current) changeRoute(`/${ref.current.value}`);
       },
       () => {}
     );

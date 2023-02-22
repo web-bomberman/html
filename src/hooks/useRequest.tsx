@@ -30,11 +30,12 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
       status: 500,
       message: 'Internal server error'
     };
-    if (axios.isAxiosError(err) && err.response)
+    if (axios.isAxiosError(err) && err.response) {
       error = {
         status: err.response.status,
         message: err.response.data as string
       };
+    }
     else console.log(err);
     func(error);
     setLoading(false);

@@ -24,7 +24,7 @@ export function useGetSession() {
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { get } = useRequest<
     { game: GameData, player: 1 | 2 }
-  >(`/sessions/${sessionId}`);
+  >(`/sessions`);
   const { post } = useRequest<
     { token: string, player: 1 | 2 }
   >(`/sessions/${sessionId}`);

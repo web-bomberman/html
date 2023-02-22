@@ -5,3 +5,4 @@ export * from './Loading';
 export * from './Providers';
 export * from './RootContainer';
 export * from './SessionRoom';
+export * from './SessionRoomPlayer';
