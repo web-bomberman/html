@@ -46,7 +46,7 @@ export function Alert() {
             <Button
               id='alert-cancel'
               onClick={data.onCancel}
-              color='success'
+              color='primary'
               variant='outlined'
             >
               Cancel

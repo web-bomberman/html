@@ -15,7 +15,7 @@ export function useNewSession() {
   const startTransition = useNotify('route_changing');
   const finishTransition = useNotify('route_changed');
   const { startLoading, stopLoading } = useLoading();
-  const api = useRequest<{ session: string }>('/sessions/new');
+  const api = useRequest<{ session: string }>('/new');
 
   useEffect(() => {
     if (sessionId && transitioned) navigate(`/${sessionId}`);

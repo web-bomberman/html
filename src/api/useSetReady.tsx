@@ -7,7 +7,7 @@ export function useSetReady() {
   const [ready, setReady] = useState<boolean>(false);
   const alert = useAlert();
   const { token } = useToken();
-  const api = useRequest<{ ready: boolean }>('/sessions/ready');
+  const api = useRequest<{ ready: boolean }>('/ready');
 
   const request = () => {
     api.post(

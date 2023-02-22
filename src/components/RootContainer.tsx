@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { css } from '@emotion/react';
 import { useObserve } from 'react-observer-implementation';
 import { Loading } from 'components';
-import { useLoading } from 'hooks';
+import { useLoading, useRoute } from 'hooks';
 import { colors } from 'themes';
 
 export function RootContainer(props: { children: React.ReactNode }) {
   const [transitioning, setTransitioning] = useState<boolean>(false);
-  const { isLoading } = useLoading();
+  const { isLoading, stopLoading } = useLoading();
+  const { route } = useRoute();
+
+  useEffect(() => {
+    if (route === '/' || route === '/credits') stopLoading();
+  }, [route]);
 
   useObserve(
     'route_changing',

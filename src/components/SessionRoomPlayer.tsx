@@ -1,8 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import { CheckBoxOutlined, CheckBoxOutlineBlank } from '@mui/icons-material';
 import { css } from '@emotion/react';
-import { useSetReady } from 'api';
-import { useRoute } from 'hooks';
+import { useLeaveGame, useSetReady } from 'api';
 import { colors } from 'themes';
 import { PlayerState } from 'types';
 import Player1 from 'assets/player1.gif';
@@ -14,8 +13,8 @@ export function SessionRoomPlayer(props: {
   player1State: PlayerState,
   player2State: PlayerState
 }) {
-  const [loading, ready, handleReady] = useSetReady();
-  const { changeRoute } = useRoute();
+  const [loadingReady, ready, handleReady] = useSetReady();
+  const [loadingLeave, leave] = useLeaveGame();
 
   const colorString = props.variant === 1 ? 'secondary' : 'error';
   const color = props.variant === 1 ? colors.secondary : colors.error;
@@ -59,7 +58,7 @@ export function SessionRoomPlayer(props: {
             variant='contained'
             color={colorString}
             startIcon={ready ? <CheckBoxOutlined /> : <CheckBoxOutlineBlank />}
-            disabled={loading}
+            disabled={loadingReady}
             onClick={handleReady}
             sx={{ marginTop: '16px' }}
           >
@@ -68,7 +67,8 @@ export function SessionRoomPlayer(props: {
           <Button
             variant='outlined'
             color='primary'
-            onClick={() => changeRoute('/')}
+            disabled={loadingLeave}
+            onClick={leave}
             sx={{ marginTop: '16px' }}
           >
             Leave Game

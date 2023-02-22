@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useInterval } from 'react-timers-hooks';
-import { useRequest, useToken, useLoading } from 'hooks';
+import { useInterval, useTimeout } from 'react-timers-hooks';
+import { useAlert } from 'react-styled-alert';
+import { Typography } from '@mui/material';
+import { useRequest, useToken, useLoading, useRoute } from 'hooks';
 import { GameData } from 'types';
 
 const EMPTY_GAME_DATA: GameData = {
@@ -19,15 +21,18 @@ export function useGetSession() {
   const [error, setError] = useState<string>('');
   const [reconnecting, setReconnecting] = useState<boolean>(false);
   const [timer, setTimer] = useState<number>(0);
+  const [reconnectTimer, setReconnectTimer] = useState<number>(0);
   const { sessionId } = useParams();
+  const alert = useAlert();
   const { token, setToken } = useToken();
   const { isLoading, startLoading, stopLoading } = useLoading();
+  const { changeRoute } = useRoute();
   const { get } = useRequest<
     { game: GameData, player: 1 | 2 }
-  >(`/sessions`);
+  >('/');
   const { post } = useRequest<
     { token: string, player: 1 | 2 }
-  >(`/sessions/${sessionId}`);
+  >(`/connect/${sessionId}`);
   
   useEffect(() => {
     startLoading();
@@ -47,16 +52,33 @@ export function useGetSession() {
       (res) => {
         if (isLoading()) stopLoading();
         setReconnecting(false);
+        setReconnectTimer(0);
         setGame({ ...res.data.game });
         setPlayer(res.data.player);
         if (res.data.game.state === 'over') setTimer(0); 
       },
-      () => setReconnecting(true),
+      () => {
+        setReconnecting(true);
+        setReconnectTimer(15000);
+      },
       { headers: {
         Authorization: `Bearer ${token}`
       }}
     );
   }, timer ? timer : null);
+
+  useTimeout(() => {
+    changeRoute('/');
+    alert(
+      <Typography
+        variant='body1'
+        color='error'
+        textAlign='center'
+      >
+        Connection failed
+      </Typography>
+    );
+  }, reconnectTimer ? reconnectTimer : null);
 
   return [game, player, error, reconnecting] as [
     game: GameData,

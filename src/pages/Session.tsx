@@ -45,7 +45,7 @@ export function Session() {
         Game Session
       </Typography>
       {sessionComp[game.state]}
-      { reconnecting ? 
+      {reconnecting ? 
         <div
           css={css`
             position: absolute;
