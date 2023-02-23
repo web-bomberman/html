@@ -29,10 +29,10 @@ export function useGetSession() {
   const { changeRoute } = useRoute();
   const { get } = useRequest<
     { game: GameData, player: 1 | 2 }
-  >('/');
+  >('/sessions');
   const { post } = useRequest<
     { token: string, player: 1 | 2 }
-  >(`/connect/${sessionId}`);
+  >(`/sessions/connect/${sessionId}`);
   
   useEffect(() => {
     startLoading();

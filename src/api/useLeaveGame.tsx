@@ -3,7 +3,7 @@ import { useRequest, useRoute, useToken } from 'hooks';
 export function useLeaveGame() {
   const { token } = useToken();
   const { changeRoute } = useRoute();
-  const { loading, post } = useRequest('/leave');
+  const { loading, post } = useRequest('/sessions/leave');
 
   const request = () => {
     post(
