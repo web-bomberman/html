@@ -21,7 +21,6 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
   return (
     <div css={css`
       width: 100%;
-      padding: 0px 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -29,6 +28,7 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
       <div css={css`
         width: 100%;
         margin: 32px 0px;
+        padding: 0px 32px;
         display: flex;
         justify-content: space-between;
       `}>
@@ -36,7 +36,7 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
           {`Session ID: ${sessionId}`}
         </Typography>
         {levels ? (
-          <FormControl sx={{ minWidth: '200px' }}>
+          <FormControl sx={{ minWidth: '160px' }}>
             <InputLabel color='primary' id='level-label'>
               Level
             </InputLabel>

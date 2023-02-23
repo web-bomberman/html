@@ -47,8 +47,6 @@ export type Level = {
 
 export type ContainerProps = {
   bordered?: boolean;
-  noBackground?: boolean;
-  blur?: string;
   margin?: string;
   width?: string;
   height?: string;

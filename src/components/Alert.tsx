@@ -22,7 +22,7 @@ export function Alert() {
         justify-content: center;
       `}
     >
-      <Container width='420px' blur='3px' bordered>
+      <Container width='420px' bordered>
         {data.content}
         <div
           css={css`

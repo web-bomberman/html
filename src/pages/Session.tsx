@@ -59,7 +59,7 @@ export function Session() {
             justify-content: center;
           `}
         >
-          <Container blur='3px' width='200px' bordered>
+          <Container width='200px' bordered>
             <div
               css={css`
                 width: 100%;

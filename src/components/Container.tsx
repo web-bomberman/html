@@ -8,9 +8,7 @@ export function Container(props: React.PropsWithChildren<ContainerProps>) {
     height,
     width,
     margin,
-    noBackground,
     bordered,
-    blur
   } = props;
   return (
     <div
@@ -20,9 +18,8 @@ export function Container(props: React.PropsWithChildren<ContainerProps>) {
         height: ${height ? height : 'fit-content'};
         width: ${width ? width : '800px'};
         margin: ${margin ? margin : 'none'};
-        background-color: ${noBackground ? 'transparent' : '#ffffff10'};
+        background-color: ${colors.background};
         border: ${bordered ? `solid 1px ${colors.halfPrimary}` : 'none'};
-        backdrop-filter: ${blur ? `blur(${blur})` : 'none'};
         @media (max-width: 800px) {
           width: 100%;
           border-radius: 0px;
