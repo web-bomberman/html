@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { useGetLevels } from 'api';
-import { SessionRoomPlayer } from 'components';
-import { GameData, Level } from 'types';
+import { SessionRoomPlayer, SessionRoomLevel } from 'components';
+import { GameData } from 'types';
 
 import {
   Typography,
@@ -13,9 +13,8 @@ import {
   FormControl
 } from '@mui/material';
 
-
 export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
-  const [level, setLevel] = useState<string>('');
+  const [level, setLevel] = useState<number>(0);
   const levels = useGetLevels();
   const { sessionId } = useParams();
 
@@ -47,10 +46,10 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
               label='Level'
               value={level}
               color='primary'
-              onChange={(e) => setLevel(e.target.value)}
+              onChange={(e) => setLevel(e.target.value as number)}
             >
               {levels.map((level, index) => (
-                <MenuItem value={level.name} key={index}>
+                <MenuItem value={index} key={index}>
                   {level.name}
                 </MenuItem>
               ))}
@@ -61,7 +60,8 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
             Loading levels...
           </Typography>
         )}
-      </div>  
+      </div>
+      {levels ? <SessionRoomLevel level={levels[level]} /> : <></>}
       <div css={css`
         width: 100%;
         display: flex;

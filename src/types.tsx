@@ -32,9 +32,17 @@ export type GameData = {
   gameObjects: GameObjectData[];
 }
 
+export type Object =
+  | 'player1'
+  | 'player2'
+  | 'destructible'
+  | 'indestructible'
+  | 'bomb'
+
 export type Level = {
   name: string;
-  objects: { object: string, position: Vector };
+  size: Vector;
+  objects: { object: Object, position: Vector }[];
 }
 
 export type ContainerProps = {
