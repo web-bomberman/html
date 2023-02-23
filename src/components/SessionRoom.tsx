@@ -1,34 +1,23 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { useGetLevels } from 'api';
 import { SessionRoomPlayer } from 'components';
-import { colors } from 'themes';
-import { GameData } from 'types';
-import Player1 from 'assets/player1.gif';
-import Player2 from 'assets/player2.gif';
+import { GameData, Level } from 'types';
 
 import {
   Typography,
-  Button,
   Select,
   InputLabel,
   MenuItem,
-  Checkbox,
-  SelectChangeEvent,
-  FormGroup,
-  FormControlLabel,
   FormControl
 } from '@mui/material';
 
 
 export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
-  const [level, setLevel] = useState<number>(0);
-  const [ready, setReady] = useState<boolean>(false);
+  const [level, setLevel] = useState<string>('');
+  const levels = useGetLevels();
   const { sessionId } = useParams();
-
-  const handleReady = (e: SelectChangeEvent<boolean>) => {
-    setReady((prev) => !prev);
-  };
 
   return (
     <div css={css`
@@ -47,23 +36,31 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
         <Typography variant='body1' color='text.primary'>
           {`Session ID: ${sessionId}`}
         </Typography>
-        <FormControl sx={{ minWidth: '200px' }}>
-          <InputLabel color='primary' id='level-label'>
-            Level
-          </InputLabel>
-          <Select
-            id='level-select'
-            labelId='level-label'
-            label='Level'
-            value={level}
-            color='primary'
-            onChange={(e) => setLevel(e.target.value as number)}
-          >
-            <MenuItem value={0}>Basic</MenuItem>
-            <MenuItem value={1}>Something</MenuItem>
-            <MenuItem value={2}>Other thing</MenuItem>
-          </Select>
-        </FormControl>
+        {levels ? (
+          <FormControl sx={{ minWidth: '200px' }}>
+            <InputLabel color='primary' id='level-label'>
+              Level
+            </InputLabel>
+            <Select
+              id='level-select'
+              labelId='level-label'
+              label='Level'
+              value={level}
+              color='primary'
+              onChange={(e) => setLevel(e.target.value)}
+            >
+              {levels.map((level, index) => (
+                <MenuItem value={level.name} key={index}>
+                  {level.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ) : (
+          <Typography variant='body1' color='text.primary'>
+            Loading levels...
+          </Typography>
+        )}
       </div>  
       <div css={css`
         width: 100%;

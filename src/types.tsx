@@ -32,6 +32,11 @@ export type GameData = {
   gameObjects: GameObjectData[];
 }
 
+export type Level = {
+  name: string;
+  objects: { object: string, position: Vector };
+}
+
 export type ContainerProps = {
   bordered?: boolean;
   noBackground?: boolean;
