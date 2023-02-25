@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAlert } from 'react-styled-alert';
+import { useObserve } from 'react-observer-implementation';
 import { Typography } from '@mui/material';
 import { useToken, useRequest } from 'hooks';
 
@@ -8,6 +9,22 @@ export function useSetReady() {
   const alert = useAlert();
   const { token } = useToken();
   const api = useRequest<{ ready: boolean }>('/sessions/ready');
+
+  useObserve(
+    'disconnected',
+    () => {
+      if (!ready) return;
+      setReady(false);
+      api.post(
+        {},
+        () => {},
+        () => {},
+        { headers: {
+          Authorization: `Bearer ${token}`
+        }}
+      )
+    }
+  );
 
   const request = () => {
     api.post(

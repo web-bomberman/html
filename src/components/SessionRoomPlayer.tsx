@@ -33,6 +33,7 @@ export function SessionRoomPlayer(props: {
 
   return (
     <div css={css`
+      width: 160px;
       display: flex;
       flex-direction: column;
       align-items: center;

@@ -10,8 +10,22 @@ export function Session() {
 
   const sessionComp = {
     room: <SessionRoom player={player} game={game} />,
-    starting: <></>,
-    running: <></>,
+    starting:
+      <Typography
+        variant='h3'
+        color='text.primary'
+        sx={{ marginTop: '64px' }}
+      >
+        Starting
+      </Typography>,
+    running:
+      <Typography
+        variant='h3'
+        color='text.primary'
+        sx={{ marginTop: '64px' }}
+      >
+        Running
+      </Typography>,
     over: <></>
   };
 
@@ -37,13 +51,6 @@ export function Session() {
 
   return (
     <>
-      <Typography
-        variant='h2'
-        color='text.primary'
-        sx={{ marginTop: '64px' }}
-      >
-        Game Session
-      </Typography>
       {sessionComp[game.state]}
       {reconnecting ? 
         <div

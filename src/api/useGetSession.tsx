@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useInterval, useTimeout } from 'react-timers-hooks';
 import { useAlert } from 'react-styled-alert';
+import { useNotify } from 'react-observer-implementation';
 import { Typography } from '@mui/material';
 import { useRequest, useToken, useLoading, useRoute } from 'hooks';
 import { GameData } from 'types';
@@ -20,10 +21,13 @@ export function useGetSession() {
   const [player, setPlayer] = useState<1 | 2>(1);
   const [error, setError] = useState<string>('');
   const [reconnecting, setReconnecting] = useState<boolean>(false);
-  const [timer, setTimer] = useState<number>(0);
+  const [tickTimer, setTickTimer] = useState<number>(0);
+  const [checkConnection, setCheckConnection] = useState<number>(0);
+  const [checkConnectionTime, setCheckConnectionTime] = useState<number>(0);
   const [reconnectTimer, setReconnectTimer] = useState<number>(0);
   const { sessionId } = useParams();
   const alert = useAlert();
+  const notifyDisconnected = useNotify('disconnected');
   const { token, setToken } = useToken();
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { changeRoute } = useRoute();
@@ -41,7 +45,8 @@ export function useGetSession() {
       (res) => {
         setToken(res.data.token);
         setPlayer(res.data.player);
-        setTimer(200);
+        setTickTimer(200);
+        setCheckConnection(1000);
       },
       (err) => setError(err.message)
     );
@@ -53,19 +58,29 @@ export function useGetSession() {
         if (isLoading()) stopLoading();
         setReconnecting(false);
         setReconnectTimer(0);
+        setCheckConnectionTime(0);
         setGame({ ...res.data.game });
         setPlayer(res.data.player);
-        if (res.data.game.state === 'over') setTimer(0); 
+        if (res.data.game.state === 'over') setTickTimer(0); 
       },
       () => {
         setReconnecting(true);
-        setReconnectTimer(15000);
+        notifyDisconnected();
+        setReconnectTimer(10000);
       },
       { headers: {
         Authorization: `Bearer ${token}`
       }}
     );
-  }, timer ? timer : null);
+  }, tickTimer ? tickTimer : null);
+
+  useInterval(() => {
+    setCheckConnectionTime((prev) => prev + 1);
+    if (checkConnectionTime >= 3) {
+      setReconnecting(true);
+      notifyDisconnected();
+    }
+  }, checkConnection ? checkConnection : null);
 
   useTimeout(() => {
     changeRoute('/');
