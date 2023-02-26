@@ -20,12 +20,12 @@ export function SessionRoomPlayer(props: {
   const color = props.variant === 1 ? colors.secondary : colors.error;
   const image = props.variant === 1 ? Player1 : Player2;
   const message = {
-    'waiting': 'Empty...',
+    'waiting': 'No player...',
     'not ready': 'Not ready',
     'ready': 'Ready!',
     'reconnecting': 'Reconnecting...',
     'connected': 'Ready!',
-    'disconnected': 'Empty...'
+    'disconnected': 'No player...'
   }[{
     1: props.player1State,
     2: props.player2State
@@ -56,7 +56,8 @@ export function SessionRoomPlayer(props: {
             YOU
           </Typography>
           <Button
-            variant='contained'
+            variant={ready ? 'contained' : 'outlined'}
+            disableRipple
             color={colorString}
             startIcon={ready ? <CheckBoxOutlined /> : <CheckBoxOutlineBlank />}
             disabled={loadingReady}
