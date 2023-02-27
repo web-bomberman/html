@@ -12,8 +12,7 @@ export function SessionRoomLevel(props: { level: Level }) {
     player1,
     player2,
     destructible,
-    indestructible,
-    bomb: ''
+    indestructible
   };
 
   return (

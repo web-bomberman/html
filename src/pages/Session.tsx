@@ -1,6 +1,6 @@
 import { useGetSession } from 'api';
 import { useRoute } from 'hooks';
-import { Container, SessionRoom } from 'components';
+import { Container, SessionRoom, SessionGame } from 'components';
 import { css } from '@emotion/react';
 import { Typography, Button } from '@mui/material';
 
@@ -14,19 +14,14 @@ export function Session() {
       <Typography
         variant='h3'
         color='text.primary'
-        sx={{ marginTop: '64px' }}
+        sx={{ marginTop: '180px' }}
       >
-        Starting
+        Get Ready!
       </Typography>,
-    running:
-      <Typography
-        variant='h3'
-        color='text.primary'
-        sx={{ marginTop: '64px' }}
-      >
-        Running
-      </Typography>,
-    over: <></>
+    running: <SessionGame player={player} game={game} />,
+    interrupted: <SessionGame player={player} game={game} />,
+    'player1 won': <SessionGame player={player} game={game} />,
+    'player2 won': <SessionGame player={player} game={game} />
   };
 
   if (error) return (

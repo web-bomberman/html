@@ -3,20 +3,22 @@ import { AxiosRequestConfig } from 'axios';
 export type Vector = [number, number]
 
 export type PlayerState =
-| 'waiting'
-| 'not ready'
-| 'ready'
-| 'connected'
-| 'reconnecting'
-| 'disconnected'
+  | 'waiting'
+  | 'not ready'
+  | 'ready'
+  | 'connected'
+  | 'reconnecting'
+  | 'disconnected'
 
 export type SessionState = 
   | 'room'
   | 'starting'
   | 'running'
-  | 'over'
+  | 'interrupted'
+  | 'player1 won'
+  | 'player2 won'
 
-export type GameObjectData = {
+export type GameObject = {
   id: number | null;
   type: string;
   position: Vector;
@@ -29,20 +31,19 @@ export type GameData = {
   player1: PlayerState;
   player2: PlayerState;
   size: Vector;
-  gameObjects: GameObjectData[];
+  gameObjects: GameObject[];
 }
 
-export type Object =
+export type LevelTile =
   | 'player1'
   | 'player2'
   | 'destructible'
   | 'indestructible'
-  | 'bomb'
 
 export type Level = {
   name: string;
   size: Vector;
-  objects: { object: Object, position: Vector }[];
+  objects: { object: LevelTile, position: Vector }[];
 }
 
 export type ContainerProps = {
