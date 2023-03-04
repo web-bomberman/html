@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAlert } from 'react-styled-alert';
 import { Typography, Button } from '@mui/material';
 import { css } from '@emotion/react';
-import { useLeaveGame } from 'api';
+import { useLeaveGame, useSendInput } from 'api';
+import { useKeyPress } from 'hooks';
 import { Container, SessionGameScreen } from 'components';
 import { GameData } from 'types';
 
@@ -11,6 +12,13 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
   const [popup, setPopup] = useState<string>('');
   const alert = useAlert();
   const [loadingLeave, leave] = useLeaveGame();
+  const [upApi, rightApi, downApi, leftApi, bombApi] = useSendInput();
+
+  useKeyPress(['w', 'ArrowUp'], upApi);
+  useKeyPress(['d', 'ArrowRight'], rightApi);
+  useKeyPress(['s', 'ArrowDown'], downApi);
+  useKeyPress(['a', 'ArrowLeft'], leftApi);
+  useKeyPress(['Enter', ' '], bombApi);
 
   useEffect(() => {
     if (game.state === 'player1 won') {
@@ -74,13 +82,15 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
   };
 
   return (
-    <div css={css`
-      width: 100%;
-      padding-top: 64px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `}>
+    <div
+      css={css`
+        width: 100%;
+        padding-top: 64px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      `}
+    >
       <SessionGameScreen
         objects={game.gameObjects}
         size={game.size}

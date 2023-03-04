@@ -61,12 +61,16 @@ export function useGetSession() {
         setCheckConnectionTime(0);
         setGame({ ...res.data.game });
         setPlayer(res.data.player);
-        if (res.data.game.state === 'over') setTickTimer(0); 
+        if (res.data.game.state === 'interrupted') setTickTimer(0);
+        else if (res.data.game.state === 'player1 won') setTickTimer(0);
+        else if (res.data.game.state === 'player2 won') setTickTimer(0);
       },
-      () => {
-        setReconnecting(true);
-        notifyDisconnected();
-        setReconnectTimer(10000);
+      (err) => {
+        if (err.message !== 'Session over') {
+          setReconnecting(true);
+          notifyDisconnected();
+          setReconnectTimer(10000);
+        }
       },
       { headers: {
         Authorization: `Bearer ${token}`
@@ -76,7 +80,7 @@ export function useGetSession() {
 
   useInterval(() => {
     setCheckConnectionTime((prev) => prev + 1);
-    if (checkConnectionTime >= 3) {
+    if (checkConnectionTime >= 3 && tickTimer !== 0) {
       setReconnecting(true);
       notifyDisconnected();
     }
