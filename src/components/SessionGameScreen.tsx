@@ -23,11 +23,44 @@ export function SessionGameScreen(
       case 'indestructible':  return indestructible;
       case 'bomb': return bomb;
       case 'explosion': {
-        if (extras[0] === 'center') return explosionCenter;
-        if (extras[0] === 'mid') return explosionMid;
-        if (extras[0] === 'end') return explosionEnd;
+        switch (extras[0]) {
+          case 'center': return explosionCenter;
+          case 'horizontal': return explosionMid;
+          case 'vertical': return explosionMid;
+          case 'up-end': return explosionEnd;
+          case 'right-end': return explosionEnd;
+          case 'down-end': return explosionEnd;
+          case 'left-end': return explosionEnd;
+          default: return '';
+        }
       }
       default: return '';
+    }
+  };
+
+  const getRotation = (type: string, extras: string[]) => {
+    if (type !== 'explosion') return 'rotate(0deg)';
+    else {
+      switch (extras[0]) {
+        case 'horizontal': return 'rotate(90deg)';
+        case 'vertical': return 'rotate(0deg)';
+        case 'up-end': return 'rotate(0deg)';
+        case 'right-end': return 'rotate(90deg)';
+        case 'down-end': return 'rotate(180deg)';
+        case 'left-end': return 'rotate(270deg)';
+        default: return 'rotate(0deg)';
+      }
+    }
+  };
+
+  const getZIndex = (type: string) => {
+    switch (type) {
+      case 'bomb': return 0;
+      case 'player1': return 1;
+      case 'player2': return 1;
+      case 'explosion': return 2;
+      case 'destructible': return 3;
+      case 'indestructible': return 3;
     }
   }
 
@@ -52,9 +85,11 @@ export function SessionGameScreen(
           css={css`
             width: 100%;
             aspect-ratio: 1;
+            z-index: ${getZIndex(obj.type)};
             image-rendering: pixelated;
             grid-column: ${obj.position[0]};
             grid-row: ${size[1] - obj.position[1] + 1};
+            transform: ${getRotation(obj.type, obj.extras)};
           `}
         />
       ))}
