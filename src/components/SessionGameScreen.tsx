@@ -9,6 +9,10 @@ import bomb from 'assets/bomb.gif';
 import explosionCenter from 'assets/explosion-center.gif';
 import explosionMid from 'assets/explosion-mid.gif';
 import explosionEnd from 'assets/explosion-end.gif';
+import plusBombs from 'assets/powerup-bombs.png';
+import plusRadius from 'assets/powerup-radius.png';
+import plusArmor from 'assets/powerup-armor.png';
+import plusNitro from 'assets/powerup-nitro.png';
 
 export function SessionGameScreen(
   props: { objects: GameObject[], size: Vector }
@@ -64,6 +68,11 @@ export function SessionGameScreen(
     }
   }
 
+  const getOpacity = (type: string, extras: string[]) => {
+    if (type === 'player' && extras.length === 5) return '1';
+    else return '1'
+  };
+
   return (
     <div css={css`
       width: 100%;
@@ -86,6 +95,7 @@ export function SessionGameScreen(
             width: 100%;
             aspect-ratio: 1;
             z-index: ${getZIndex(obj.type)};
+            opacity: ${getOpacity(obj.type, obj.extras)};
             image-rendering: pixelated;
             grid-column: ${obj.position[0]};
             grid-row: ${size[1] - obj.position[1] + 1};
