@@ -15,7 +15,7 @@ import plusArmor from 'assets/powerup-armor.png';
 import plusNitro from 'assets/powerup-nitro.png';
 
 export function SessionGameScreen(
-  props: { objects: GameObject[], size: Vector }
+  props: { objects: GameObject[], size: Vector, winner: 1 | 2 | null }
 ) {
   const { size, objects } = props;
 
@@ -25,6 +25,10 @@ export function SessionGameScreen(
       case 'player2': return player2;
       case 'destructible': return destructible;
       case 'indestructible':  return indestructible;
+      case 'powerup-bombs': return plusBombs;
+      case 'powerup-radius': return plusRadius;
+      case 'powerup-armor': return plusArmor;
+      case 'powerup-nitro': return plusNitro;
       case 'bomb': return bomb;
       case 'explosion': {
         switch (extras[0]) {
@@ -59,29 +63,36 @@ export function SessionGameScreen(
 
   const getZIndex = (type: string) => {
     switch (type) {
-      case 'bomb': return 0;
-      case 'player1': return 1;
-      case 'player2': return 1;
-      case 'explosion': return 2;
-      case 'destructible': return 3;
-      case 'indestructible': return 3;
+      case 'powerup-bombs': return 0;
+      case 'powerup-radius': return 0;
+      case 'powerup-armor': return 0;
+      case 'powerup-nitro': return 0;
+      case 'bomb': return 1;
+      case 'player1': return 2;
+      case 'player2': return 2;
+      case 'explosion': return 3;
+      case 'destructible': return 4;
+      case 'indestructible': return 4;
     }
   }
 
-  const getOpacity = (type: string, extras: string[]) => {
-    if (type === 'player' && extras.length === 5) return '1';
-    else return '1'
+  const getOpacity = (type: string) => {
+    if (type === 'player1' && props.winner === 2) return '0';
+    else if (type === 'player2' && props.winner === 1) return '0';
+    else return '1';
   };
 
   return (
     <div css={css`
-      width: 100%;
+      width: 624px;
       margin-bottom: 64px;
+      box-sizing: content-box;
       border: 4px solid ${colors.halfPrimary};
       display: grid;
       grid-template-columns: repeat(${size[0]}, 1fr);
       grid-template-rows: repeat(${size[1]}, 1fr);
-      @media (max-width: 1024px) {
+      @media (max-width: 624px) {
+        width: 100%;
         border-right: none;
         border-left: none;
       }
@@ -95,7 +106,7 @@ export function SessionGameScreen(
             width: 100%;
             aspect-ratio: 1;
             z-index: ${getZIndex(obj.type)};
-            opacity: ${getOpacity(obj.type, obj.extras)};
+            opacity: ${getOpacity(obj.type)};
             image-rendering: pixelated;
             grid-column: ${obj.position[0]};
             grid-row: ${size[1] - obj.position[1] + 1};

@@ -17,13 +17,15 @@ export function SessionRoomLevel(props: { level: Level }) {
 
   return (
     <div css={css`
-      width: 100%;
+      width: 624px;
       margin-bottom: 64px;
+      box-sizing: content-box;
       border: 4px solid ${colors.halfPrimary};
       display: grid;
       grid-template-columns: repeat(${size[0]}, 1fr);
       grid-template-rows: repeat(${size[1]}, 1fr);
-      @media (max-width: 1024px) {
+      @media (max-width: 624px) {
+        width: 100%;
         border-right: none;
         border-left: none;
       }

@@ -66,6 +66,14 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
     } else setPopup('');
   }, [game.player1, game.player2, game.state]);
 
+  const getWinner = () => {
+    switch (game.state) {
+      case 'player1 won': return 1;
+      case 'player2 won': return 2;
+      default: return null;
+    }
+  };
+
   const handleLeave = () => {
     alert(
       <Typography
@@ -94,6 +102,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
       <SessionGameScreen
         objects={game.gameObjects}
         size={game.size}
+        winner={getWinner()}
       />
       <div css={css`
         margin-top: 64px;
