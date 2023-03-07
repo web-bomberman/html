@@ -35,13 +35,14 @@ export function useGetSession() {
   const { get } = useRequest<
     { game: GameData, player: 1 | 2 }
   >('/sessions');
-  const { post } = useRequest<
+  const { post: connect } = useRequest<
     { token: string, player: 1 | 2 }
   >(`/sessions/connect/${sessionId}`);
+  const { post: disconnect } = useRequest('/sessions/leave');
   
   useEffect(() => {
     startLoading();
-    post(
+    connect(
       {},
       (res) => {
         setToken(res.data.token);
@@ -62,7 +63,66 @@ export function useGetSession() {
         setCheckConnectionTime(0);
         setGame({ ...res.data.game });
         setPlayer(res.data.player);
-        if (res.data.game.state === 'interrupted') setTickTimer(0);
+        if (    // When you're player 2 and player 1 leaves, take player 1
+          res.data.player === 2 &&
+          res.data.game.player1 === 'waiting'
+        ) {
+          startLoading();
+          setTickTimer(0);
+          disconnect(
+            {},
+            () => {
+              connect(
+                {},
+                (res) => {
+                  setToken(res.data.token);
+                  setPlayer(res.data.player);
+                  setTickTimer(200);
+                  setCheckConnection(1000);
+                  alert(
+                    <Typography
+                      variant='body1'
+                      color='primary'
+                      textAlign='center'
+                    >
+                      Player 1 disconnected,<br/>you're player 1 now
+                    </Typography>
+                  );
+                },
+                () => {
+                  changeRoute('/');
+                  alert(
+                    <Typography
+                      variant='body1'
+                      color='error'
+                      textAlign='center'
+                    >
+                      Connection failed
+                    </Typography>
+                  );
+                },
+                { headers: {
+                  Authorization: `Bearer ${token}`
+                }}
+              );
+            },
+            () => {
+              changeRoute('/');
+              alert(
+                <Typography
+                  variant='body1'
+                  color='error'
+                  textAlign='center'
+                >
+                  Connection failed
+                </Typography>
+              );
+            },
+            { headers: {
+              Authorization: `Bearer ${token}`
+            }}
+          );
+        } else if (res.data.game.state === 'interrupted') setTickTimer(0);
         else if (res.data.game.state === 'player1 won') setTickTimer(0);
         else if (res.data.game.state === 'player2 won') setTickTimer(0);
       },

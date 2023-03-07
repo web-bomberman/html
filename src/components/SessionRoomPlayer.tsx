@@ -47,7 +47,7 @@ export function SessionRoomPlayer(props: {
           width: 64px;
           margin: 16px 0px;
           image-rendering: pixelated;
-          opacity: ${message === 'Empty...' ? '0.3' : '1.0'};
+          opacity: ${message === 'No player...' ? '0.3' : '1.0'};
         `}
       />
       {props.player === props.variant ? (
