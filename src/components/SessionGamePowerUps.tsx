@@ -65,12 +65,14 @@ export function SessionGamePowerUps(
       position: relative;
       width: 100%;
       margin-top: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     `}
     >
       <Typography variant='body1' color='text.primary'>
         {`Blast radius: ${bombRadius}, bomb quantity: ${bombQuantity}`}
-      </Typography>
-      <Typography variant='body1' color='text.primary'>
+        <br/>
         {getArmorAndNitroDisplay()}
       </Typography>
       {popup ? (
@@ -78,7 +80,7 @@ export function SessionGamePowerUps(
           position: absolute;
           top: -96px;
           left: 0px;
-          right: 0px;
+          width: 100%;
           z-index: 4;
           display: flex;
           align-items: center;
@@ -90,7 +92,11 @@ export function SessionGamePowerUps(
             border: solid 1px ${colors.halfPrimary};
             background-color: ${colors.background};
           `}>
-            <Typography variant='body1' color='text.primary'>
+            <Typography
+              variant='body1'
+              color='text.primary'
+              align='center'
+            >
               {popup}
             </Typography>
           </div>

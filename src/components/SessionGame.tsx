@@ -160,10 +160,10 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
         winner={getWinner()}
       />
       <div css={css`
+        width: 100%;
         display: flex;
-        @media (max-width: 1024px) {
-          flex-direction: column;
-        }
+        flex-direction: column;
+        align-items: center;
       `}
       >
         <SessionGamePowerUps
