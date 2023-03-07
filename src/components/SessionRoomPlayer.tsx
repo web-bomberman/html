@@ -1,5 +1,4 @@
 import { Button, Typography } from '@mui/material';
-import { CheckBoxOutlined, CheckBoxOutlineBlank } from '@mui/icons-material';
 import { css } from '@emotion/react';
 import { useLeaveGame, useSetReady } from 'api';
 import { colors } from 'themes';
@@ -58,8 +57,8 @@ export function SessionRoomPlayer(props: {
           <Button
             variant={ready ? 'contained' : 'outlined'}
             disableRipple
+            size='large'
             color={colorString}
-            startIcon={ready ? <CheckBoxOutlined /> : <CheckBoxOutlineBlank />}
             disabled={loadingReady}
             onClick={handleReady}
             sx={{ marginTop: '16px' }}
