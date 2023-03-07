@@ -50,6 +50,18 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
         </Typography>,
         () => leave()
       );
+    } else if (game.state === 'draw') {
+      setPopup('');
+      alert(
+        <Typography
+          variant='body1'
+          color='text.primary'
+          textAlign='center'
+        >
+          Draw!
+        </Typography>,
+        () => leave()
+      );
     } else if (
       (player === 1 && game.player2 === 'reconnecting') ||
       (player === 2 && game.player1 === 'reconnecting')
@@ -75,6 +87,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
     switch (game.state) {
       case 'player1 won': return 1;
       case 'player2 won': return 2;
+      case 'draw': return 'draw';
       default: return null;
     }
   };

@@ -21,7 +21,8 @@ export function Session() {
     running: <SessionGame player={player} game={game} />,
     interrupted: <SessionGame player={player} game={game} />,
     'player1 won': <SessionGame player={player} game={game} />,
-    'player2 won': <SessionGame player={player} game={game} />
+    'player2 won': <SessionGame player={player} game={game} />,
+    draw: <SessionGame player={player} game={game} />
   };
 
   if (error) return (

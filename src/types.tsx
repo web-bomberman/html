@@ -17,6 +17,7 @@ export type SessionState =
   | 'interrupted'
   | 'player1 won'
   | 'player2 won'
+  | 'draw'
 
 export type GameObject = {
   id: number | null;

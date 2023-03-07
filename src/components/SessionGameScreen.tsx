@@ -15,7 +15,7 @@ import plusArmor from 'assets/powerup-armor.png';
 import plusNitro from 'assets/powerup-nitro.png';
 
 export function SessionGameScreen(
-  props: { objects: GameObject[], size: Vector, winner: 1 | 2 | null }
+  props: { objects: GameObject[], size: Vector, winner: 'draw' | 1 | 2 | null }
 ) {
   const { size, objects } = props;
 
@@ -79,6 +79,7 @@ export function SessionGameScreen(
   const getOpacity = (type: string) => {
     if (type === 'player1' && props.winner === 2) return '0';
     else if (type === 'player2' && props.winner === 1) return '0';
+    else if (props.winner === 'draw') return '0';
     else return '1';
   };
 

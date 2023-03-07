@@ -125,6 +125,7 @@ export function useGetSession() {
         } else if (res.data.game.state === 'interrupted') setTickTimer(0);
         else if (res.data.game.state === 'player1 won') setTickTimer(0);
         else if (res.data.game.state === 'player2 won') setTickTimer(0);
+        else if (res.data.game.state === 'draw') setTickTimer(0);
       },
       (err) => {
         if (err.message !== 'Session over') {
