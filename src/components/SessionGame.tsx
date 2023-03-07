@@ -4,8 +4,13 @@ import { Typography, Button } from '@mui/material';
 import { css } from '@emotion/react';
 import { useLeaveGame, useSendInput } from 'api';
 import { useKeyPress } from 'hooks';
-import { Container, SessionGameScreen } from 'components';
 import { GameData } from 'types';
+
+import {
+  Container,
+  SessionGameScreen,
+  SessionGamePowerUps
+} from 'components';
 
 export function SessionGame(props: { player: 1 | 2, game: GameData }) {
   const { player, game } = props;
@@ -74,6 +79,43 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
     }
   };
 
+  const powerUps = (() => {
+    let extras: string[] = [];
+    for (const obj of game.gameObjects) {
+      if (obj.type === 'player1' && player === 1) {
+        extras = [
+          obj.extras[0].replace('bomb-radius: ', ''),
+          obj.extras[1].replace('bomb-quantity: ', ''),
+          obj.extras[2].replace('nitro-bombs: ', ''),
+          obj.extras[3].replace('protective-armor: ', '')
+        ];
+        break;
+      }
+      if (obj.type === 'player2' && player === 2) {
+        extras = [
+          obj.extras[0].replace('bomb-radius: ', ''),
+          obj.extras[1].replace('bomb-quantity: ', ''),
+          obj.extras[2].replace('nitro-bombs: ', ''),
+          obj.extras[3].replace('protective-armor: ', '')
+        ];
+        break;
+      }
+    }
+    if (extras.length === 4) {
+      return {
+        bombRadius: Number(extras[0]),
+        bombQuantity: Number(extras[1]),
+        nitro: extras[2] === 'true' ? true : false,
+        armor: extras[3] === 'true' ? true : false
+      };
+    } else return {
+      bombRadius: 0,
+      bombQuantity: 0,
+      armor: false,
+      nitro: false
+    };
+  })();
+
   const handleLeave = () => {
     alert(
       <Typography
@@ -105,17 +147,23 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
         winner={getWinner()}
       />
       <div css={css`
-        margin-top: 64px;
         display: flex;
         @media (max-width: 1024px) {
           flex-direction: column;
         }
       `}
       >
+        <SessionGamePowerUps
+          bombQuantity={powerUps.bombQuantity}
+          bombRadius={powerUps.bombRadius}
+          armor={powerUps.armor}
+          nitro={powerUps.nitro}
+        />
         <Typography
           variant='body1'
           color='text.primary'
           fontSize='large'
+          sx={{ marginTop: '32px' }}
         >
           WASD/Arrows: move<br/>
           Space/Enter: bomb

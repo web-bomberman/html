@@ -5,6 +5,7 @@ export * from './Loading';
 export * from './Providers';
 export * from './RootContainer';
 export * from './SessionGame';
+export * from './SessionGamePowerUps';
 export * from './SessionGameScreen';
 export * from './SessionRoom';
 export * from './SessionRoomLevel';

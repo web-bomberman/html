@@ -85,7 +85,6 @@ export function SessionGameScreen(
   return (
     <div css={css`
       width: 624px;
-      margin-bottom: 64px;
       box-sizing: content-box;
       border: 4px solid ${colors.halfPrimary};
       display: grid;
