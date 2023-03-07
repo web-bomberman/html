@@ -13,6 +13,7 @@ const EMPTY_GAME_DATA: GameData = {
   player1: 'waiting',
   player2: 'waiting',
   size: [0, 0],
+  level: 'Basic',
   gameObjects: []
 };
 

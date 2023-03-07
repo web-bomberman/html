@@ -2,10 +2,10 @@ import { useAlert } from 'react-styled-alert';
 import { Typography } from '@mui/material';
 import { useRequest, useToken } from 'hooks';
 
-export function useStartGame(levelName: string) {
+export function useStartGame() {
   const alert = useAlert();
   const { token } = useToken();
-  const api = useRequest(`/sessions/start/${levelName}`);
+  const api = useRequest(`/sessions/start-game`);
 
   const request = () => {
     api.post(

@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
-import { useGetLevels, useStartGame } from 'api';
+import { useGetLevels, usePickLevel, useStartGame } from 'api';
 import { SessionRoomPlayer, SessionRoomLevel } from 'components';
 import { GameData } from 'types';
 
@@ -11,20 +10,26 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
-  Button
+  Button,
+  SelectChangeEvent
 } from '@mui/material';
 
 export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
-  const [level, setLevel] = useState<number>(0);
+  const { player, game } = props;
   const levels = useGetLevels();
-  const [starting, start] = useStartGame(levels ? levels[level].name : '');
+  const [levelLoading, pickLevel, level] = usePickLevel(levels, game.level);
+  const [starting, start] = useStartGame();
   const { sessionId } = useParams();
 
-  const ready = levels &&
+  const ready = level &&
     !starting &&
-    props.game.player1 === 'ready' &&
-    props.game.player2 === 'ready';
-
+    game.player1 === 'ready' &&
+    game.player2 === 'ready';
+  
+  const handlePickLevel = (e: SelectChangeEvent<string>) => {
+    pickLevel(e.target.value);
+  };
+  
   return (
     <div css={css`
       width: 100%;
@@ -52,8 +57,8 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
         <Typography variant='body1' color='text.primary'>
           {`Session ID: ${sessionId}`}
         </Typography>
-        {props.player === 1 ? (
-          levels ? (
+        {player === 1 ? (
+          levels && level ? (
             <FormControl sx={{ minWidth: '160px' }}>
               <InputLabel color='primary' id='level-label'>
                 Level
@@ -62,12 +67,12 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
                 id='level-select'
                 labelId='level-label'
                 label='Level'
-                value={level}
+                value={level.name}
                 color='primary'
-                onChange={(e) => setLevel(e.target.value as number)}
+                onChange={handlePickLevel}
               >
                 {levels.map((level, index) => (
-                  <MenuItem value={index} key={index}>
+                  <MenuItem value={level.name} key={index}>
                     {level.name}
                   </MenuItem>
                 ))}
@@ -78,9 +83,35 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
               Loading levels...
             </Typography>
           )
-        ) : <></>}
+        ) : (
+          levels && level ? (
+            <Typography variant='body1' color='text.primary'>
+              {`Level: ${level.name}`}
+            </Typography>
+          ) : (
+            <Typography variant='body1' color='text.primary'>
+              Loading levels...
+            </Typography>
+          )
+        )}
       </div>
-      {levels ? <SessionRoomLevel level={levels[level]} /> : <></>}
+      {level ? (
+        levelLoading ? (
+          <Typography
+            variant='body1'
+            color='text.primary'
+            alignSelf='center'
+            sx={{
+              marginTop: '64px',
+              marginBottom: '196px'
+            }}
+          >
+            Loading...
+          </Typography>
+        ) : (
+          <SessionRoomLevel level={level} />
+        )
+      ) : <></>}
       <div css={css`
         width: 100%;
         display: flex;
@@ -92,18 +123,18 @@ export function SessionRoom(props: { player: 1 | 2, game: GameData }) {
       `}>
         <SessionRoomPlayer
           variant={1}
-          player={props.player}
-          player1State={props.game.player1}
-          player2State={props.game.player2}
+          player={player}
+          player1State={game.player1}
+          player2State={game.player2}
         />
         <SessionRoomPlayer
           variant={2}
-          player={props.player}
-          player1State={props.game.player1}
-          player2State={props.game.player2}
+          player={player}
+          player1State={game.player1}
+          player2State={game.player2}
         />
       </div>
-      {props.player === 1 ? (
+      {player === 1 ? (
         <Button
           variant='contained'
           color='primary'

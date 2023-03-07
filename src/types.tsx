@@ -31,6 +31,7 @@ export type GameData = {
   player1: PlayerState;
   player2: PlayerState;
   size: Vector;
+  level: string;
   gameObjects: GameObject[];
 }
 
