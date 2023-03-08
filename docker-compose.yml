@@ -1,0 +1,21 @@
+version: '3'
+volumes:
+  front:
+services:
+  web:
+    container_name: web
+    image: web
+    build: ./web
+    environment:
+      NODE_ENV: production
+    volumes:
+      - front:/var/www/html
+  server:
+    container_name: server
+    image: nginx:1.23-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - front:/var/www/html:ro
+      - ./nginx:/etc/nginx/conf.d/:ro
