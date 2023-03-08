@@ -14,7 +14,6 @@ jobs:
       
       - name: Build
         run: |
-          cd ~
           docker compose down
           docker compose build
       
