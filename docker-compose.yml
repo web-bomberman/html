@@ -9,13 +9,16 @@ services:
     environment:
       NODE_ENV: production
     volumes:
-      - front:/var/www/html
+      - front:/var/www/html:rw
   server:
     container_name: server
     image: nginx:1.23-alpine
     restart: always
     ports:
       - 80:80
+      - 443:443
     volumes:
       - front:/var/www/html:ro
       - ./nginx:/etc/nginx/conf.d/:ro
+      - ./certbot/www/:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
