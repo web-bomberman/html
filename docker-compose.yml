@@ -20,5 +20,5 @@ services:
     volumes:
       - front:/var/www/html:ro
       - ./nginx:/etc/nginx/conf.d/:ro
-      - ~/certbot/www/:/var/www/certbot/:ro
-      - ~/certbot/conf/:/etc/nginx/ssl/:ro
+      - /home/ubuntu/certbot/www/:/var/www/certbot/:ro
+      - /home/ubuntu/certbot/conf/:/etc/nginx/ssl/:ro
