@@ -4,6 +4,7 @@ services:
     container_name: front-builder
     image: front-builder
     build: .
+    command: sh -c "mv dist/* /var/www/html"
     environment:
       NODE_ENV: production
     volumes:
