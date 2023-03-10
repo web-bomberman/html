@@ -7,4 +7,4 @@ services:
     environment:
       NODE_ENV: production
     volumes:
-      - /home/ubuntu/front-build:/var/www/html:rw
+      - ~/html:/var/www/html:rw
