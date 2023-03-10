@@ -1,10 +1,10 @@
 version: '3'
 services:
-  web-builder:
-    container_name: web-builder
-    image: web-builder
+  front-builder:
+    container_name: front-builder
+    image: front-builder
     build: .
     environment:
       NODE_ENV: production
     volumes:
-      - /home/ubuntu/web-build:/var/www/html:rw
+      - /home/ubuntu/front-build:/var/www/html:rw
