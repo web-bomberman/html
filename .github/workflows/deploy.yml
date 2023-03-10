@@ -15,7 +15,7 @@ jobs:
       - name: Build
         run: |
           rm -rf ~/html/*
-          docker compose build
+          docker compose up -d
       
-      - name: Run
-        run: docker compose up -d
+      - name: Clean-up
+        run: docker system prune -f

@@ -4,4 +4,4 @@ COPY . .
 RUN mkdir -p /var/www/html
 RUN npm install
 RUN npm run build
-RUN mv dist/* /var/www/html
+CMD ["mv", "dist/*", "/var/www/html"]
