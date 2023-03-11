@@ -50,7 +50,10 @@ export function Credits() {
         with TypeScript, both are open source licensed under the MIT license.
         Both were made as practice. The API in particular is a great example
         of OOP and its many design patterns. Feel free to look at the source
-        code and learn from it!
+        code and learn from it!<br/><br/>
+        Pixel graphics were done by me, the icons on the mobile controls are
+        from <Anchor text='game-icons.net' url='https://game-icons.net'/>,
+        licensed under CC-BY-3.0, bomb by Lorc and arrow by Delapouite.
       </Typography>
       <Typography
         variant='body1'

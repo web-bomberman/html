@@ -32,6 +32,7 @@ export function Background() {
         width: 100vw;
         background-image: url(${background});
         background-size: 1024px;
+        background-repeat: repeat;
         mask-image: linear-gradient(
           rgba(0, 0, 0, 0),
           rgba(0, 0, 0, 0.1) 25%,
@@ -58,6 +59,7 @@ export function Background() {
           width: 100vw;
           background-image: url(${background});
           background-size: 1024px;
+          background-repeat: repeat;
           mask-image: radial-gradient(
             circle,
             rgba(0, 0, 0, 0.5),

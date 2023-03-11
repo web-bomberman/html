@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useAlert } from 'react-styled-alert';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, useMediaQuery } from '@mui/material';
 import { css } from '@emotion/react';
 import { useLeaveGame, useSendInput } from 'api';
 import { useKeyPress } from 'hooks';
 import { GameData } from 'types';
+import LeftArrow from 'assets/arrow-left.svg';
+import RightArrow from 'assets/arrow-right.svg';
+import UpArrow from 'assets/arrow-up.svg';
+import DownArrow from 'assets/arrow-down.svg';
+import Bomb from 'assets/bomb.svg';
 
 import {
   Container,
@@ -16,6 +21,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
   const { player, game } = props;
   const [popup, setPopup] = useState<string>('');
   const alert = useAlert();
+  const mediaQuery = useMediaQuery('(max-width: 1024px');
   const [loadingLeave, leave] = useLeaveGame();
   const [upApi, rightApi, downApi, leftApi, bombApi] = useSendInput();
 
@@ -172,15 +178,97 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
           armor={powerUps.armor}
           nitro={powerUps.nitro}
         />
-        <Typography
-          variant='body1'
-          color='text.primary'
-          fontSize='large'
-          sx={{ marginTop: '32px' }}
-        >
-          WASD/Arrows: move<br/>
-          Space/Enter: bomb
-        </Typography>
+        {mediaQuery ? (
+          <div css={css`
+            width: 512px;
+            display: grid;
+            padding: 32px;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            column-gap: 32px;
+            row-gap: 32px;
+            @media (max-width: 512px) {
+              width: 100%;
+            }
+          `}
+          >
+            <Button
+              variant='outlined'
+              color='primary'
+              onClick={upApi}
+              sx={{
+                width: '100%',
+                height: '100%',
+                gridColumn: 2,
+                gridRow: 1
+              }}
+            >
+              <img src={UpArrow}/>
+            </Button>
+            <Button
+              variant='outlined'
+              color='primary'
+              onClick={downApi}
+              sx={{
+                width: '100%',
+                height: '100%',
+                gridColumn: 2,
+                gridRow: 3
+              }}
+            >
+              <img src={DownArrow}/>
+            </Button>
+            <Button
+              variant='outlined'
+              color='primary'
+              onClick={leftApi}
+              sx={{
+                width: '100%',
+                height: '100%',
+                gridColumn: 1,
+                gridRow: 2
+              }}
+            >
+              <img src={LeftArrow}/>
+            </Button>
+            <Button
+              variant='outlined'
+              color='primary'
+              onClick={rightApi}
+              sx={{
+                width: '100%',
+                height: '100%',
+                gridColumn: 3,
+                gridRow: 2
+              }}
+            >
+              <img src={RightArrow}/>
+            </Button>
+            <Button
+              variant='outlined'
+              color='primary'
+              onClick={bombApi}
+              sx={{
+                width: '100%',
+                height: '100%',
+                gridColumn: 2,
+                gridRow: 2
+              }}
+            >
+              <img src={Bomb}/>
+            </Button>
+          </div>
+        ) : (
+          <Typography
+            variant='body1'
+            color='text.primary'
+            fontSize='large'
+            sx={{ marginTop: '32px' }}
+          >
+            WASD/Arrows: move<br/>
+            Space/Enter: bomb
+          </Typography>
+        )}
         <Button
           variant='outlined'
           color='primary'
