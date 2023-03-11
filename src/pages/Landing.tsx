@@ -47,7 +47,7 @@ export function Landing() {
       <Typography
         variant='body1'
         color='text.primary'
-        sx={{ marginTop: '64px' }}
+        sx={{ margin: '64px 16px 0 16px' }}
       >
         Welcome. This is the Web Bomberman project, where you can play
         bomberman on your browser with a friend.

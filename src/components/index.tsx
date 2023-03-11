@@ -1,4 +1,5 @@
 export * from './Alert';
+export * from './Background';
 export * from './Container';
 export * from './GlobalStyle';
 export * from './Loading';

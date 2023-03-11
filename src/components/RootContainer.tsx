@@ -36,9 +36,6 @@ export function RootContainer(props: { children: React.ReactNode }) {
         align-items: center;
         overflow-y: scroll;
         overflow-x: hidden;
-        background: ${colors.background};
-        background-position: center;
-        background-repeat: no-repeat;
       `}
     >
       <div

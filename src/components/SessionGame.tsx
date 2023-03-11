@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAlert } from 'react-styled-alert';
 import { Typography, Button } from '@mui/material';
 import { css } from '@emotion/react';

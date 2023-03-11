@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import { Alert, RootContainer } from 'components';
+import { Alert, Background, RootContainer } from 'components';
 import { Landing, Credits, Session } from 'pages';
 
 export function App() {
   return (
     <>
+      <Background />
       <RootContainer>
         <Routes>
           <Route path='/' element={<Landing />} />

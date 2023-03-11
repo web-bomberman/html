@@ -7,6 +7,11 @@ export function GlobalStyle() {
       styles={css`
         ${reset}
 
+        :root {
+          --mouse-x: 0px;
+          --mouse-y: 0px;
+        }
+
         * {
           box-sizing: border-box;
         }
@@ -17,10 +22,8 @@ export function GlobalStyle() {
 
         #root {
           position: absolute;
-          top: 0px;
-          bottom: 0px;
-          left: 0px;
-          right: 0px;
+          height: 100vh;
+          width: 100vw;
         } 
       `}
     />
