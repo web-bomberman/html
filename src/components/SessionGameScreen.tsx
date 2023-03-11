@@ -88,6 +88,7 @@ export function SessionGameScreen(
       width: 624px;
       box-sizing: content-box;
       border: 4px solid ${colors.halfPrimary};
+      background-color: ${colors.background};
       display: grid;
       grid-template-columns: repeat(${size[0]}, 1fr);
       grid-template-rows: repeat(${size[1]}, 1fr);

@@ -44,11 +44,11 @@ export function Credits() {
       <Typography
         variant='body1'
         color='text.primary'
-        sx={{ marginTop: '16px', textAlign: 'center' }}
+        sx={{ margin: '16px', textAlign: 'center' }}
       >
         This webpage was made with React and TypeScript, and the API was made
         with TypeScript, both are open source licensed under the MIT license.
-        Both were made as exercises. The API in particular is a great example
+        Both were made as practice. The API in particular is a great example
         of OOP and its many design patterns. Feel free to look at the source
         code and learn from it!
       </Typography>
