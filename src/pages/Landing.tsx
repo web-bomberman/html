@@ -4,6 +4,7 @@ import { useRoute } from 'hooks';
 import { useNewSession } from 'api';
 import { Typography, Button, TextField } from '@mui/material';
 import { css } from '@emotion/react';
+import video from 'assets/video.mp4';
 
 export function Landing() {
   const ref = useRef<HTMLInputElement>();
@@ -44,18 +45,19 @@ export function Landing() {
       >
         Web Bomberman
       </Typography>
-      <Typography
-        variant='body1'
-        color='text.primary'
-        sx={{ margin: '64px 16px 0 16px' }}
-      >
-        Welcome. This is the Web Bomberman project, where you can play
-        bomberman on your browser with a friend.
-      </Typography>
+      <video autoPlay loop muted playsInline css={css`
+        width: 600px;
+        margin: 32px 0;
+        @media (max-width: 600px) {
+          width: 100%;
+        }
+      `}>
+        <source src={video} type='video/mp4'/>
+      </video>
       <div
         css={css`
           width: 800px;
-          margin-top: 128px;
+          margin-top: 64px;
           display: flex;
           justify-content: space-between;
           padding: 0px 32px;
