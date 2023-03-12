@@ -6,20 +6,20 @@ export function useLoading() {
 
   const isLoading = () => {
     return loading;
-  }
+  };
 
   const startLoading = () => {
     setLoading(true);
-  }
+  };
 
   const stopLoading = () => {
     setLoading(false);
-  }
+  };
 
   return {
     isLoading,
     startLoading,
-    stopLoading
+    stopLoading,
   } as {
     isLoading: () => boolean;
     startLoading: () => void;

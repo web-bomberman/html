@@ -10,38 +10,36 @@ export function useSetReady() {
   const { token } = useToken();
   const api = useRequest<{ ready: boolean }>('/sessions/ready');
 
-  useObserve(
-    'disconnected',
-    () => {
-      if (!ready) return;
-      setReady(false);
-      api.post(
-        {},
-        () => {},
-        () => {},
-        { headers: {
-          Authorization: `Bearer ${token}`
-        }}
-      )
-    }
-  );
+  useObserve('disconnected', () => {
+    if (!ready) return;
+    setReady(false);
+    api.post(
+      {},
+      () => {},
+      () => {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  });
 
   const request = () => {
     api.post(
       {},
       (res) => setReady(res.data.ready),
-      (err) => alert(
-        <Typography
-          variant='body1'
-          color='error'
-          textAlign='center'
-        >
-          {err.message}
-        </Typography>
-      ),
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
+      (err) =>
+        alert(
+          <Typography variant="body1" color="error" textAlign="center">
+            {err.message}
+          </Typography>
+        ),
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
   };
 

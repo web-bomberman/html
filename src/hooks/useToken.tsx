@@ -6,7 +6,7 @@ export function useToken() {
   return {
     token,
     setToken,
-    clearToken: () => setToken('')
+    clearToken: () => setToken(''),
   } as {
     token: string;
     setToken: (newToken: string) => void;

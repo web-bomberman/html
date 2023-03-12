@@ -8,7 +8,9 @@ export const LoadingContext = createContext<{
 export function LoadingProvider(props: { children: React.ReactNode }) {
   const [loading, setLoading] = useState<boolean>(false);
   return (
-    <LoadingContext.Provider value={{ loading: loading, setLoading: setLoading }}>
+    <LoadingContext.Provider
+      value={{ loading: loading, setLoading: setLoading }}
+    >
       {props.children}
     </LoadingContext.Provider>
   );

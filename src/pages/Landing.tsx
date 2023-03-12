@@ -15,11 +15,11 @@ export function Landing() {
   const handleFindGame = () => {
     alert(
       <TextField
-        id='find-game'
-        label='Game session ID'
-        type='text'
-        variant='outlined'
-        margin='normal'
+        id="find-game"
+        label="Game session ID"
+        type="text"
+        variant="outlined"
+        margin="normal"
         inputRef={ref}
         fullWidth
         autoFocus
@@ -39,20 +39,26 @@ export function Landing() {
   return (
     <>
       <Typography
-        variant='h2'
-        color='text.primary'
+        variant="h2"
+        color="text.primary"
         sx={{ textAlign: 'center', marginTop: '64px' }}
       >
         Web Bomberman
       </Typography>
-      <video autoPlay loop muted playsInline css={css`
-        width: 600px;
-        margin: 32px 0;
-        @media (max-width: 600px) {
-          width: 100%;
-        }
-      `}>
-        <source src={video} type='video/mp4'/>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        css={css`
+          width: 600px;
+          margin: 32px 0;
+          @media (max-width: 600px) {
+            width: 100%;
+          }
+        `}
+      >
+        <source src={video} type="video/mp4" />
       </video>
       <div
         css={css`
@@ -68,24 +74,24 @@ export function Landing() {
         `}
       >
         <Button
-          variant='outlined'
-          size='large'
+          variant="outlined"
+          size="large"
           onClick={newSession}
           sx={{ margin: '8px 0px' }}
         >
           Create Game
         </Button>
         <Button
-          variant='outlined'
-          size='large'
+          variant="outlined"
+          size="large"
           onClick={handleFindGame}
           sx={{ margin: '8px 0px' }}
         >
           Find Game
         </Button>
         <Button
-          variant='outlined'
-          size='large'
+          variant="outlined"
+          size="large"
           onClick={() => changeRoute('/credits')}
           sx={{ margin: '8px 0px' }}
         >

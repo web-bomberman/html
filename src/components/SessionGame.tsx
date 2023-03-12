@@ -11,13 +11,9 @@ import UpArrow from 'assets/arrow-up.svg';
 import DownArrow from 'assets/arrow-down.svg';
 import Bomb from 'assets/bomb.svg';
 
-import {
-  Container,
-  SessionGameScreen,
-  SessionGamePowerUps
-} from 'components';
+import { Container, SessionGameScreen, SessionGamePowerUps } from 'components';
 
-export function SessionGame(props: { player: 1 | 2, game: GameData }) {
+export function SessionGame(props: { player: 1 | 2; game: GameData }) {
   const { player, game } = props;
   const [popup, setPopup] = useState<string>('');
   const alert = useAlert();
@@ -35,11 +31,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
     if (game.state === 'player1 won') {
       setPopup('');
       alert(
-        <Typography
-          variant='body1'
-          color='text.primary'
-          textAlign='center'
-        >
+        <Typography variant="body1" color="text.primary" textAlign="center">
           Player 1 wins!
         </Typography>,
         () => leave()
@@ -47,11 +39,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
     } else if (game.state === 'player2 won') {
       setPopup('');
       alert(
-        <Typography
-          variant='body1'
-          color='text.primary'
-          textAlign='center'
-        >
+        <Typography variant="body1" color="text.primary" textAlign="center">
           Player 2 wins!
         </Typography>,
         () => leave()
@@ -59,11 +47,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
     } else if (game.state === 'draw') {
       setPopup('');
       alert(
-        <Typography
-          variant='body1'
-          color='text.primary'
-          textAlign='center'
-        >
+        <Typography variant="body1" color="text.primary" textAlign="center">
           Draw!
         </Typography>,
         () => leave()
@@ -71,17 +55,15 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
     } else if (
       (player === 1 && game.player2 === 'reconnecting') ||
       (player === 2 && game.player1 === 'reconnecting')
-    ) setPopup(`Checking opponent's connection...`);
+    )
+      setPopup(`Checking opponent's connection...`);
     else if (
-      game.player1 === 'disconnected' || game.player2 === 'disconnected'
+      game.player1 === 'disconnected' ||
+      game.player2 === 'disconnected'
     ) {
       setPopup('');
       alert(
-        <Typography
-          variant='body1'
-          color='text.primary'
-          textAlign='center'
-        >
+        <Typography variant="body1" color="text.primary" textAlign="center">
           Opponent disconnected.
         </Typography>,
         () => leave()
@@ -91,10 +73,14 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
 
   const getWinner = () => {
     switch (game.state) {
-      case 'player1 won': return 1;
-      case 'player2 won': return 2;
-      case 'draw': return 'draw';
-      default: return null;
+      case 'player1 won':
+        return 1;
+      case 'player2 won':
+        return 2;
+      case 'draw':
+        return 'draw';
+      default:
+        return null;
     }
   };
 
@@ -106,7 +92,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
           obj.extras[0].replace('bomb-radius: ', ''),
           obj.extras[1].replace('bomb-quantity: ', ''),
           obj.extras[2].replace('nitro-bombs: ', ''),
-          obj.extras[3].replace('protective-armor: ', '')
+          obj.extras[3].replace('protective-armor: ', ''),
         ];
         break;
       }
@@ -115,7 +101,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
           obj.extras[0].replace('bomb-radius: ', ''),
           obj.extras[1].replace('bomb-quantity: ', ''),
           obj.extras[2].replace('nitro-bombs: ', ''),
-          obj.extras[3].replace('protective-armor: ', '')
+          obj.extras[3].replace('protective-armor: ', ''),
         ];
         break;
       }
@@ -125,25 +111,23 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
         bombRadius: Number(extras[0]),
         bombQuantity: Number(extras[1]),
         nitro: extras[2] === 'true' ? true : false,
-        armor: extras[3] === 'true' ? true : false
+        armor: extras[3] === 'true' ? true : false,
       };
-    } else return {
-      bombRadius: 0,
-      bombQuantity: 0,
-      armor: false,
-      nitro: false
-    };
+    } else
+      return {
+        bombRadius: 0,
+        bombQuantity: 0,
+        armor: false,
+        nitro: false,
+      };
   })();
 
   const handleLeave = () => {
     alert(
-      <Typography
-        variant='body1'
-        color='text.primary'
-        textAlign='center'
-      >
-        Disconnect and leave the game?<br/>
-        You can't come back.
+      <Typography variant="body1" color="text.primary" textAlign="center">
+        Disconnect and leave the game?
+        <br />
+        {"You can't come back."}
       </Typography>,
       () => leave(),
       () => {}
@@ -165,12 +149,13 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
         size={game.size}
         winner={getWinner()}
       />
-      <div css={css`
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      `}
+      <div
+        css={css`
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        `}
       >
         <SessionGamePowerUps
           bombQuantity={powerUps.bombQuantity}
@@ -179,99 +164,101 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
           nitro={powerUps.nitro}
         />
         {mediaQuery ? (
-          <div css={css`
-            width: 512px;
-            display: grid;
-            padding: 32px;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            column-gap: 32px;
-            row-gap: 32px;
-            @media (max-width: 512px) {
-              width: 100%;
-            }
-          `}
+          <div
+            css={css`
+              width: 512px;
+              display: grid;
+              padding: 32px;
+              grid-template-columns: repeat(3, 1fr);
+              grid-template-rows: repeat(3, 1fr);
+              column-gap: 32px;
+              row-gap: 32px;
+              @media (max-width: 512px) {
+                width: 100%;
+              }
+            `}
           >
             <Button
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               onClick={upApi}
               sx={{
                 width: '100%',
                 height: '100%',
                 gridColumn: 2,
-                gridRow: 1
+                gridRow: 1,
               }}
             >
-              <img src={UpArrow}/>
+              <img src={UpArrow} />
             </Button>
             <Button
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               onClick={downApi}
               sx={{
                 width: '100%',
                 height: '100%',
                 gridColumn: 2,
-                gridRow: 3
+                gridRow: 3,
               }}
             >
-              <img src={DownArrow}/>
+              <img src={DownArrow} />
             </Button>
             <Button
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               onClick={leftApi}
               sx={{
                 width: '100%',
                 height: '100%',
                 gridColumn: 1,
-                gridRow: 2
+                gridRow: 2,
               }}
             >
-              <img src={LeftArrow}/>
+              <img src={LeftArrow} />
             </Button>
             <Button
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               onClick={rightApi}
               sx={{
                 width: '100%',
                 height: '100%',
                 gridColumn: 3,
-                gridRow: 2
+                gridRow: 2,
               }}
             >
-              <img src={RightArrow}/>
+              <img src={RightArrow} />
             </Button>
             <Button
-              variant='outlined'
-              color='primary'
+              variant="outlined"
+              color="primary"
               onClick={bombApi}
               sx={{
                 width: '100%',
                 height: '100%',
                 gridColumn: 2,
-                gridRow: 2
+                gridRow: 2,
               }}
             >
-              <img src={Bomb}/>
+              <img src={Bomb} />
             </Button>
           </div>
         ) : (
           <Typography
-            variant='body1'
-            color='text.primary'
-            fontSize='large'
+            variant="body1"
+            color="text.primary"
+            fontSize="large"
             sx={{ marginTop: '32px' }}
           >
-            WASD/Arrows: move<br/>
+            WASD/Arrows: move
+            <br />
             Space/Enter: bomb
           </Typography>
         )}
         <Button
-          variant='outlined'
-          color='primary'
+          variant="outlined"
+          color="primary"
           disabled={loadingLeave}
           onClick={handleLeave}
           sx={{ marginTop: '16px' }}
@@ -279,7 +266,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
           Leave Game
         </Button>
       </div>
-      {popup ? 
+      {popup ? (
         <div
           css={css`
             position: absolute;
@@ -293,7 +280,7 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
             justify-content: center;
           `}
         >
-          <Container width='200px' bordered>
+          <Container width="200px" bordered>
             <div
               css={css`
                 width: 100%;
@@ -303,17 +290,18 @@ export function SessionGame(props: { player: 1 | 2, game: GameData }) {
               `}
             >
               <Typography
-                variant='body1'
-                color='text.primary'
-                textAlign='center'
+                variant="body1"
+                color="text.primary"
+                textAlign="center"
               >
                 {popup}
               </Typography>
             </div>
           </Container>
         </div>
-        : <></>
-      }
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

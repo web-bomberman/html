@@ -4,12 +4,7 @@ import { colors } from 'themes';
 import { ContainerProps } from 'types';
 
 export function Container(props: React.PropsWithChildren<ContainerProps>) {
-  const {
-    height,
-    width,
-    margin,
-    bordered,
-  } = props;
+  const { height, width, margin, bordered } = props;
   return (
     <div
       css={css`
@@ -23,7 +18,8 @@ export function Container(props: React.PropsWithChildren<ContainerProps>) {
         @media (max-width: 800px) {
           width: 100%;
           border-radius: 0px;
-          ${bordered && css`
+          ${bordered &&
+          css`
             border-left: 'none';
             border-right: 'none';
           `}

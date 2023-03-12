@@ -34,6 +34,21 @@ npm run dev:host
 In order for other devices to reach your machine, they must be connected to
 the same router your machine is connected to.
 
+## Formatting and Linters
+
+We're using the classic ESLinter + Prettier combination. Run the following
+before pushing to the repository and make sure you fix all errors.
+
+```
+npm run lint
+```
+
+The errors that can be automatically fixed can be done so by running this:
+
+```
+npm run lint:fix
+```
+
 ## Credits
 
 [Rafael Bordoni](https://github.com/eldskald)

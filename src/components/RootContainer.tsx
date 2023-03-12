@@ -4,7 +4,6 @@ import { css } from '@emotion/react';
 import { useObserve } from 'react-observer-implementation';
 import { Loading } from 'components';
 import { useLoading, useRoute } from 'hooks';
-import { colors } from 'themes';
 
 export function RootContainer(props: { children: React.ReactNode }) {
   const [transitioning, setTransitioning] = useState<boolean>(false);
@@ -15,15 +14,9 @@ export function RootContainer(props: { children: React.ReactNode }) {
     if (route === '/' || route === '/credits') stopLoading();
   }, [route]);
 
-  useObserve(
-    'route_changing',
-    () => setTransitioning(true)
-  );
+  useObserve('route_changing', () => setTransitioning(true));
 
-  useObserve(
-    'route_changed',
-    () => setTransitioning(false)
-  )
+  useObserve('route_changed', () => setTransitioning(false));
 
   return (
     <div
@@ -46,8 +39,7 @@ export function RootContainer(props: { children: React.ReactNode }) {
           flex-direction: column;
           align-items: center;
           opacity: ${transitioning ? '0' : '1'};
-          transform: ${transitioning ?
-            'translateX(50%)' : 'translateX(0px)'};
+          transform: ${transitioning ? 'translateX(50%)' : 'translateX(0px)'};
           transition: transform 0.3s, opacity 0.3s;
           @media (max-width: 1024px) {
             width: 100%;
@@ -67,8 +59,8 @@ export function RootContainer(props: { children: React.ReactNode }) {
         </div>
       </div>
       <Typography
-        variant='body2'
-        color='text.secondary'
+        variant="body2"
+        color="text.secondary"
         sx={{ margin: '64px 0px 24px 0px' }}
       >
         Web Bomberman - Rafael de Lima Bordoni, 2023

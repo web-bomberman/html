@@ -14,11 +14,7 @@ export function useSendInput() {
   const error = () => {
     alert(
       <Typography>
-        <Typography
-          variant='body1'
-          color='error'
-          textAlign='center'
-        >
+        <Typography variant="body1" color="error" textAlign="center">
           Input request failed
         </Typography>
       </Typography>
@@ -26,58 +22,43 @@ export function useSendInput() {
   };
 
   const up = () => {
-    upApi.post(
-      {},
-      () => {},
-      error,
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
-    );
+    upApi.post({}, () => {}, error, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   const right = () => {
-    rightApi.post(
-      {},
-      () => {},
-      error,
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
-    );
+    rightApi.post({}, () => {}, error, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   const down = () => {
-    downApi.post(
-      {},
-      () => {},
-      error,
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
-    );
+    downApi.post({}, () => {}, error, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   const left = () => {
-    leftApi.post(
-      {},
-      () => {},
-      error,
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
-    );
+    leftApi.post({}, () => {}, error, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   const bomb = () => {
-    bombApi.post(
-      {},
-      () => {},
-      error,
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
-    );
+    bombApi.post({}, () => {}, error, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   return [up, right, down, left, bomb] as [

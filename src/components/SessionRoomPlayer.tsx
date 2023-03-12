@@ -7,10 +7,10 @@ import Player1 from 'assets/player1.gif';
 import Player2 from 'assets/player2.gif';
 
 export function SessionRoomPlayer(props: {
-  variant: 1 | 2,
-  player: 1 | 2,
-  player1State: PlayerState,
-  player2State: PlayerState
+  variant: 1 | 2;
+  player: 1 | 2;
+  player1State: PlayerState;
+  player2State: PlayerState;
 }) {
   const [loadingReady, ready, handleReady] = useSetReady();
   const [loadingLeave, leave] = useLeaveGame();
@@ -19,25 +19,29 @@ export function SessionRoomPlayer(props: {
   const color = props.variant === 1 ? colors.secondary : colors.error;
   const image = props.variant === 1 ? Player1 : Player2;
   const message = {
-    'waiting': 'No player...',
+    waiting: 'No player...',
     'not ready': 'Not ready',
-    'ready': 'Ready!',
-    'reconnecting': 'Reconnecting...',
-    'connected': 'Ready!',
-    'disconnected': 'No player...'
-  }[{
-    1: props.player1State,
-    2: props.player2State
-  }[props.variant]];
+    ready: 'Ready!',
+    reconnecting: 'Reconnecting...',
+    connected: 'Ready!',
+    disconnected: 'No player...',
+  }[
+    {
+      1: props.player1State,
+      2: props.player2State,
+    }[props.variant]
+  ];
 
   return (
-    <div css={css`
-      width: 160px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `}>
-    <Typography variant='body1' color={color}>
+    <div
+      css={css`
+        width: 160px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      `}
+    >
+      <Typography variant="body1" color={color}>
         {`Player ${props.variant}`}
       </Typography>
       <img
@@ -51,13 +55,13 @@ export function SessionRoomPlayer(props: {
       />
       {props.player === props.variant ? (
         <>
-          <Typography variant='body1' color={color} sx={{ marginTop: '16px' }}>
+          <Typography variant="body1" color={color} sx={{ marginTop: '16px' }}>
             YOU
           </Typography>
           <Button
             variant={ready ? 'contained' : 'outlined'}
             disableRipple
-            size='large'
+            size="large"
             color={colorString}
             disabled={loadingReady}
             onClick={handleReady}
@@ -66,8 +70,8 @@ export function SessionRoomPlayer(props: {
             {ready ? 'Ready!' : 'Ready?'}
           </Button>
           <Button
-            variant='outlined'
-            color='primary'
+            variant="outlined"
+            color="primary"
             disabled={loadingLeave}
             onClick={leave}
             sx={{ marginTop: '16px' }}
@@ -75,11 +79,11 @@ export function SessionRoomPlayer(props: {
             Leave Game
           </Button>
         </>
-      ) : 
-        <Typography variant='body1' color={color} sx={{ marginTop: '16px' }}>
+      ) : (
+        <Typography variant="body1" color={color} sx={{ marginTop: '16px' }}>
           {message}
         </Typography>
-      }
+      )}
     </div>
   );
 }

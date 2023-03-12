@@ -21,12 +21,15 @@ export function useNewSession() {
     if (sessionId && transitioned) navigate(`/${sessionId}`);
   }, [sessionId, transitioned]);
 
-  useTimeout(() => {
-    setTransitioned(true);
-    finishTransition();
-    startLoading();
-    setTimer(0);
-  }, timer ? timer : null);
+  useTimeout(
+    () => {
+      setTransitioned(true);
+      finishTransition();
+      startLoading();
+      setTimer(0);
+    },
+    timer ? timer : null
+  );
 
   return () => {
     startTransition();
@@ -40,11 +43,7 @@ export function useNewSession() {
         setTimer(0);
         finishTransition();
         alert(
-          <Typography
-            variant='body1'
-            color='error'
-            textAlign='center'
-          >
+          <Typography variant="body1" color="error" textAlign="center">
             {err.message}
           </Typography>
         );

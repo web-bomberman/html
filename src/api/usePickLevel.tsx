@@ -26,18 +26,16 @@ export function usePickLevel(levels: Level[] | null, gameLevel: string) {
       () => {
         setNewLevel('');
         alert(
-          <Typography
-            variant='body1'
-            color='error'
-            textAlign='center'
-          >
+          <Typography variant="body1" color="error" textAlign="center">
             Failed to select level
           </Typography>
         );
       },
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
   };
 

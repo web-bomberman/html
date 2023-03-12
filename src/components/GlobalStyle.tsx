@@ -24,7 +24,7 @@ export function GlobalStyle() {
           position: absolute;
           height: 100vh;
           width: 100vw;
-        } 
+        }
       `}
     />
   );

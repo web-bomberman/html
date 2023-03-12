@@ -22,7 +22,7 @@ export function Alert() {
         justify-content: center;
       `}
     >
-      <Container width='420px' bordered>
+      <Container width="420px" bordered>
         {data.content}
         <div
           css={css`
@@ -35,23 +35,25 @@ export function Alert() {
           `}
         >
           <Button
-            id='alert-ok'
+            id="alert-ok"
             onClick={data.onOk}
-            color='primary'
-            variant='contained'
+            color="primary"
+            variant="contained"
           >
             Ok
           </Button>
           {data.onCancel ? (
             <Button
-              id='alert-cancel'
+              id="alert-cancel"
               onClick={data.onCancel}
-              color='primary'
-              variant='outlined'
+              color="primary"
+              variant="outlined"
             >
               Cancel
             </Button>
-          ) : (<></>)}
+          ) : (
+            <></>
+          )}
         </div>
       </Container>
     </div>

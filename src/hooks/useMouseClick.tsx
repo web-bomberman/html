@@ -10,5 +10,5 @@ export function useMouseClick(callback: (x: number, y: number) => void) {
     return () => {
       window.removeEventListener('click', handler);
     };
-  }, [])
+  }, []);
 }

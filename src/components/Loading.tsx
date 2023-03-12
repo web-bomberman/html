@@ -13,11 +13,7 @@ export function Loading() {
   }, 250);
 
   return (
-    <Typography
-      variant='body1'
-      color='text.primary'
-      sx={{ margin: '64px' }}
-    >
+    <Typography variant="body1" color="text.primary" sx={{ margin: '64px' }}>
       {`Loading${dots}`}
     </Typography>
   );

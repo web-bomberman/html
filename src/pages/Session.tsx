@@ -10,45 +10,39 @@ export function Session() {
 
   const sessionComp = {
     room: <SessionRoom player={player} game={game} />,
-    starting:
-      <Typography
-        variant='h3'
-        color='text.primary'
-        sx={{ marginTop: '180px' }}
-      >
+    starting: (
+      <Typography variant="h3" color="text.primary" sx={{ marginTop: '180px' }}>
         Get Ready!
-      </Typography>,
+      </Typography>
+    ),
     running: <SessionGame player={player} game={game} />,
     interrupted: <SessionGame player={player} game={game} />,
     'player1 won': <SessionGame player={player} game={game} />,
     'player2 won': <SessionGame player={player} game={game} />,
-    draw: <SessionGame player={player} game={game} />
+    draw: <SessionGame player={player} game={game} />,
   };
 
-  if (error) return (
-    <>
-      <Typography
-        variant='body1'
-        color='error'
-        sx={{ marginTop: '64px' }}
-      >
-        {error}
-      </Typography>
-      <Button
-        variant='outlined'
-        color='primary'
-        sx={{ marginTop: '128px' }}
-        onClick={() => changeRoute('/')}
-      >
-        Go Back
-      </Button>
-    </>
-  );
+  if (error)
+    return (
+      <>
+        <Typography variant="body1" color="error" sx={{ marginTop: '64px' }}>
+          {error}
+        </Typography>
+        <Button
+          variant="outlined"
+          color="primary"
+          sx={{ marginTop: '128px' }}
+          onClick={() => changeRoute('/')}
+        >
+          Go Back
+        </Button>
+      </>
+    );
 
   return (
     <>
       {sessionComp[game.state]}
-      {reconnecting ? 
+      {reconnecting ? (
         <div
           css={css`
             position: absolute;
@@ -62,7 +56,7 @@ export function Session() {
             justify-content: center;
           `}
         >
-          <Container width='200px' bordered>
+          <Container width="200px" bordered>
             <div
               css={css`
                 width: 100%;
@@ -72,15 +66,15 @@ export function Session() {
               `}
             >
               <Typography
-                variant='body1'
-                color='text.primary'
-                textAlign='center'
+                variant="body1"
+                color="text.primary"
+                textAlign="center"
               >
                 Reconnecting...
               </Typography>
               <Button
-                variant='outlined'
-                color='error'
+                variant="outlined"
+                color="error"
                 sx={{ marginTop: '32px' }}
                 onClick={() => changeRoute('/')}
               >
@@ -88,9 +82,10 @@ export function Session() {
               </Button>
             </div>
           </Container>
-        </div> :
+        </div>
+      ) : (
         <></>
-      }
+      )}
     </>
   );
 }

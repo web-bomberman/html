@@ -10,14 +10,13 @@ export function useLeaveGame() {
       {},
       () => changeRoute('/'),
       () => changeRoute('/'),
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
   };
 
-  return [loading, request] as [
-    loading: boolean,
-    request: () => void
-  ];
+  return [loading, request] as [loading: boolean, request: () => void];
 }

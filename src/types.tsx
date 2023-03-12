@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-export type Vector = [number, number]
+export type Vector = [number, number];
 
 export type PlayerState =
   | 'waiting'
@@ -8,23 +8,23 @@ export type PlayerState =
   | 'ready'
   | 'connected'
   | 'reconnecting'
-  | 'disconnected'
+  | 'disconnected';
 
-export type SessionState = 
+export type SessionState =
   | 'room'
   | 'starting'
   | 'running'
   | 'interrupted'
   | 'player1 won'
   | 'player2 won'
-  | 'draw'
+  | 'draw';
 
 export type GameObject = {
   id: number | null;
   type: string;
   position: Vector;
   extras: string[];
-}
+};
 
 export type GameData = {
   id: string;
@@ -34,36 +34,36 @@ export type GameData = {
   size: Vector;
   level: string;
   gameObjects: GameObject[];
-}
+};
 
 export type LevelTile =
   | 'player1'
   | 'player2'
   | 'destructible'
-  | 'indestructible'
+  | 'indestructible';
 
 export type Level = {
   name: string;
   size: Vector;
-  objects: { object: LevelTile, position: Vector }[];
-}
+  objects: { object: LevelTile; position: Vector }[];
+};
 
 export type ContainerProps = {
   bordered?: boolean;
   margin?: string;
   width?: string;
   height?: string;
-}
+};
 
 export type UseRequestResponse<Type> = {
   status: number;
   data: Type;
-}
+};
 
 export type UseRequestError = {
   status: number;
   message: string;
-}
+};
 
 export type UseRequestAborters = {
   get: AbortController;
@@ -71,8 +71,9 @@ export type UseRequestAborters = {
   put: AbortController;
   patch: AbortController;
   delete: AbortController;
-}
+};
 
+/* eslint @typescript-eslint/no-explicit-any: off */
 export type UseRequestReturn<Type> = {
   loading: boolean;
   get: (
@@ -103,4 +104,4 @@ export type UseRequestReturn<Type> = {
     catchFn: (err: UseRequestError) => void,
     config?: AxiosRequestConfig<any>
   ) => void;
-}
+};

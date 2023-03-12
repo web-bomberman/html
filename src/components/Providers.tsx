@@ -12,9 +12,7 @@ export function Providers(props: { children: ReactNode }) {
         <AlertProvider>
           <TokenProvider>
             <LoadingProvider>
-              <MUIThemeProvider>
-                {props.children}
-              </MUIThemeProvider>
+              <MUIThemeProvider>{props.children}</MUIThemeProvider>
             </LoadingProvider>
           </TokenProvider>
         </AlertProvider>

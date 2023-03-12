@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "env": {
+    "browser": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react", "@emotion"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "18.2.0"
+    }
+  },
+  "rules": {
+    "no-console": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-inferrable-types": "off"
+  }
+}

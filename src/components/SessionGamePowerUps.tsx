@@ -4,14 +4,12 @@ import { css } from '@emotion/react';
 import { Typography } from '@mui/material';
 import { colors } from 'themes';
 
-export function SessionGamePowerUps(
-  props: {
-    bombQuantity: number,
-    bombRadius: number,
-    armor: boolean,
-    nitro: boolean
-  }
-) {
+export function SessionGamePowerUps(props: {
+  bombQuantity: number;
+  bombRadius: number;
+  armor: boolean;
+  nitro: boolean;
+}) {
   const { bombQuantity, bombRadius, armor, nitro } = props;
   const [popup, setPopup] = useState<string>('');
   const [timer, setTimer] = useState<number>(0);
@@ -34,7 +32,7 @@ export function SessionGamePowerUps(
   useEffect(() => {
     if (!ready) return;
     if (armor) setPopup('Acquired protective armor!');
-    else setPopup('Protective armor lost!')
+    else setPopup('Protective armor lost!');
     if (timer !== 5000) setTimer(5000);
     else setTimer(5001);
   }, [armor]);
@@ -46,10 +44,13 @@ export function SessionGamePowerUps(
     else setTimer(5001);
   }, [nitro]);
 
-  useTimeout(() => {
-    setTimer(0);
-    setPopup('');
-  }, timer ? timer : null);
+  useTimeout(
+    () => {
+      setTimer(0);
+      setPopup('');
+    },
+    timer ? timer : null
+  );
 
   useTimeout(() => setReady(true), 100);
 
@@ -58,50 +59,53 @@ export function SessionGamePowerUps(
     else if (armor && !nitro) return 'Protective armor';
     else if (!armor && nitro) return 'Nitro bombs';
     else return '';
-  }
+  };
 
   return (
-    <div css={css`
-      position: relative;
-      width: 100%;
-      margin-top: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    `}
+    <div
+      css={css`
+        position: relative;
+        width: 100%;
+        margin-top: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `}
     >
-      <Typography variant='body1' color='text.primary'>
+      <Typography variant="body1" color="text.primary">
         {`Blast radius: ${bombRadius}, bomb quantity: ${bombQuantity}`}
-        <br/>
+        <br />
         {getArmorAndNitroDisplay()}
       </Typography>
       {popup ? (
-        <div css={css`
-          position: absolute;
-          top: -96px;
-          left: 0px;
-          width: 100%;
-          z-index: 4;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        `}>
-          <div css={css`
-            padding: 16px;
-            border-radius: 8px;
-            border: solid 1px ${colors.halfPrimary};
-            background-color: ${colors.background};
-          `}>
-            <Typography
-              variant='body1'
-              color='text.primary'
-              align='center'
-            >
+        <div
+          css={css`
+            position: absolute;
+            top: -96px;
+            left: 0px;
+            width: 100%;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          `}
+        >
+          <div
+            css={css`
+              padding: 16px;
+              border-radius: 8px;
+              border: solid 1px ${colors.halfPrimary};
+              background-color: ${colors.background};
+            `}
+          >
+            <Typography variant="body1" color="text.primary" align="center">
               {popup}
             </Typography>
           </div>
         </div>
-      ) : <></>}
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

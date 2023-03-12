@@ -11,10 +11,13 @@ export function useRoute() {
   const startTransition = useNotify('route_changing');
   const finishTransition = useNotify('route_changed');
 
-  useTimeout(() => {
-    navigate(newRoute);
-    finishTransition();
-  }, timer ? timer : null);
+  useTimeout(
+    () => {
+      navigate(newRoute);
+      finishTransition();
+    },
+    timer ? timer : null
+  );
 
   const changeRoute = (route: string) => {
     startTransition();
@@ -24,7 +27,7 @@ export function useRoute() {
 
   return {
     route: location.pathname,
-    changeRoute
+    changeRoute,
   } as {
     route: string;
     changeRoute: (newRoute: string) => void;

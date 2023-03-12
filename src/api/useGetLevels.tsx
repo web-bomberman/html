@@ -20,7 +20,7 @@ export function useGetLevels() {
         setLevels([...res.data]);
       },
       () => {
-        setDisconnectTimer(15000)
+        setDisconnectTimer(15000);
         setTimer(200);
       }
     );
@@ -28,23 +28,25 @@ export function useGetLevels() {
 
   useEffect(request, []);
 
-  useTimeout(() => {
-    setTimer(0);
-    request();
-  }, timer ? timer : null);
+  useTimeout(
+    () => {
+      setTimer(0);
+      request();
+    },
+    timer ? timer : null
+  );
 
-  useTimeout(() => {
-    changeRoute('/');
-    alert(
-      <Typography
-        variant='body1'
-        color='error'
-        textAlign='center'
-      >
-        Failed to retrieve levels
-      </Typography>
-    );
-  }, disconnectTimer ? disconnectTimer : null);
+  useTimeout(
+    () => {
+      changeRoute('/');
+      alert(
+        <Typography variant="body1" color="error" textAlign="center">
+          Failed to retrieve levels
+        </Typography>
+      );
+    },
+    disconnectTimer ? disconnectTimer : null
+  );
 
   return levels;
 }

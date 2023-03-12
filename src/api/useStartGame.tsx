@@ -13,22 +13,18 @@ export function useStartGame() {
       () => {},
       (err) => {
         alert(
-          <Typography
-            variant='body1'
-            color='error'
-            textAlign='center'
-          >
+          <Typography variant="body1" color="error" textAlign="center">
             {err.message}
           </Typography>
-      )},
-      { headers: {
-        Authorization: `Bearer ${token}`
-      }}
+        );
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
   };
-  
-  return [api.loading, request] as [
-    loading: boolean,
-    request: () => void
-  ];
+
+  return [api.loading, request] as [loading: boolean, request: () => void];
 }

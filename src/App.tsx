@@ -8,12 +8,12 @@ export function App() {
       <Background />
       <RootContainer>
         <Routes>
-          <Route path='/' element={<Landing />} />
-          <Route path='/credits' element={<Credits />} />
-          <Route path='/:sessionId' element={<Session />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/credits" element={<Credits />} />
+          <Route path="/:sessionId" element={<Session />} />
         </Routes>
       </RootContainer>
       <Alert />
     </>
-  )
+  );
 }

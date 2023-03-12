@@ -10,12 +10,12 @@ export const colors = {
   halfError: '#e4404050',
   contrast: '#ffffff',
   halfContrast: '#ffffff50',
-  background: '#0c140c'
+  background: '#0c140c',
 };
 
 export const fonts = {
   display: 'Goldman',
-  script: 'Tomorrow'
+  script: 'Tomorrow',
 };
 
 const theme = createTheme({
@@ -23,82 +23,78 @@ const theme = createTheme({
     mode: 'dark',
     primary: {
       main: colors.primary,
-      contrastText: colors.background
+      contrastText: colors.background,
     },
     secondary: {
       main: colors.secondary,
-      contrastText: colors.background
+      contrastText: colors.background,
     },
     error: {
       main: colors.error,
-      contrastText: colors.background
+      contrastText: colors.background,
     },
     text: {
       primary: colors.primary,
       secondary: colors.halfPrimary,
-      disabled: 'rgba(0, 0, 0, 0.3)'
-    }
+      disabled: 'rgba(0, 0, 0, 0.3)',
+    },
   },
   components: {
     MuiButton: {
       variants: [
         {
           props: { variant: 'contained' },
-          style: { fontFamily: fonts.display }
+          style: { fontFamily: fonts.display },
         },
         {
           props: { variant: 'outlined' },
-          style: { fontFamily: fonts.display }
-        }
-      ]
+          style: { fontFamily: fonts.display },
+        },
+      ],
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        notchedOutline: { borderColor: colors.halfPrimary }
-      }
+        notchedOutline: { borderColor: colors.halfPrimary },
+      },
     },
     MuiCheckbox: {
       variants: [
         {
           props: { color: 'secondary' },
-          style: { color: colors.halfSecondary }
+          style: { color: colors.halfSecondary },
         },
         {
           props: { color: 'error' },
-          style: { color: colors.halfError }
-        }
-      ]
-    }
+          style: { color: colors.halfError },
+        },
+      ],
+    },
   },
   typography: {
     fontFamily: fonts.script,
     h1: {
       fontFamily: fonts.display,
-      fontVariant: 'small-caps'
+      fontVariant: 'small-caps',
     },
     h2: {
       fontFamily: fonts.display,
-      fontVariant: 'small-caps'
+      fontVariant: 'small-caps',
     },
     h3: {
       fontFamily: fonts.display,
-      fontVariant: 'small-caps'
+      fontVariant: 'small-caps',
     },
     h4: {
       fontFamily: fonts.display,
-      fontVariant: 'small-caps'
+      fontVariant: 'small-caps',
     },
     h5: {
       fontFamily: fonts.display,
-      fontVariant: 'small-caps'
+      fontVariant: 'small-caps',
     },
-  }
+  },
 });
 
 export function MUIThemeProvider(props: { children: ReactNode }) {
-  return (
-    <ThemeProvider theme={theme}>
-      {props.children}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 }

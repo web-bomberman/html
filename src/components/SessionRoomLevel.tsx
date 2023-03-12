@@ -12,25 +12,26 @@ export function SessionRoomLevel(props: { level: Level }) {
     player1,
     player2,
     destructible,
-    indestructible
+    indestructible,
   };
 
   return (
-    <div css={css`
-      width: 624px;
-      margin-bottom: 64px;
-      box-sizing: content-box;
-      border: 4px solid ${colors.halfPrimary};
-      background-color: ${colors.background};
-      display: grid;
-      grid-template-columns: repeat(${size[0]}, 1fr);
-      grid-template-rows: repeat(${size[1]}, 1fr);
-      @media (max-width: 624px) {
-        width: 100%;
-        border-right: none;
-        border-left: none;
-      }
-    `}
+    <div
+      css={css`
+        width: 624px;
+        margin-bottom: 64px;
+        box-sizing: content-box;
+        border: 4px solid ${colors.halfPrimary};
+        background-color: ${colors.background};
+        display: grid;
+        grid-template-columns: repeat(${size[0]}, 1fr);
+        grid-template-rows: repeat(${size[1]}, 1fr);
+        @media (max-width: 624px) {
+          width: 100%;
+          border-right: none;
+          border-left: none;
+        }
+      `}
     >
       {objects.map((value, index) => (
         <img
