@@ -20,7 +20,6 @@ export type SessionState =
   | 'draw';
 
 export type GameObject = {
-  id: number | null;
   type: string;
   position: Vector;
   extras: string[];
@@ -33,7 +32,7 @@ export type GameData = {
   player2: PlayerState;
   size: Vector;
   level: string;
-  gameObjects: GameObject[];
+  gameObjects: { [id: string]: GameObject };
 };
 
 export type LevelTile =

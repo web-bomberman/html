@@ -86,7 +86,7 @@ export function SessionGame(props: { player: 1 | 2; game: GameData }) {
 
   const powerUps = (() => {
     let extras: string[] = [];
-    for (const obj of game.gameObjects) {
+    for (const obj of Object.values(game.gameObjects)) {
       if (obj.type === 'player1' && player === 1) {
         extras = [
           obj.extras[0].replace('bomb-radius: ', ''),

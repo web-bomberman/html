@@ -15,7 +15,7 @@ import plusArmor from 'assets/powerup-armor.png';
 import plusNitro from 'assets/powerup-nitro.png';
 
 export function SessionGameScreen(props: {
-  objects: GameObject[];
+  objects: { [id: string]: GameObject };
   size: Vector;
   winner: 'draw' | 1 | 2 | null;
 }) {
@@ -137,9 +137,9 @@ export function SessionGameScreen(props: {
         }
       `}
     >
-      {objects.map((obj) => (
+      {Object.entries(objects).map(([id, obj]) => (
         <img
-          key={obj.id}
+          key={id}
           src={getSprite(obj.type, obj.extras)}
           css={css`
             width: 100%;
