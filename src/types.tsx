@@ -1,5 +1,3 @@
-import { AxiosRequestConfig } from 'axios';
-
 export type Vector = [number, number];
 
 export type PlayerState =
@@ -52,47 +50,4 @@ export type ContainerProps = {
   margin?: string;
   width?: string;
   height?: string;
-};
-
-export type UseRequestResponse<Type> = {
-  status: number;
-  data: Type;
-};
-
-export type UseRequestError = {
-  status: number;
-  message: string;
-};
-
-/* eslint @typescript-eslint/no-explicit-any: off */
-export type UseRequestReturn<Type> = {
-  loading: boolean;
-  get: (
-    thenFn: (res: UseRequestResponse<Type>) => void,
-    catchFn: (err: UseRequestError) => void,
-    config?: AxiosRequestConfig<any>
-  ) => void;
-  post: (
-    body: object,
-    thenFn: (res: UseRequestResponse<Type>) => void,
-    catchFn: (err: UseRequestError) => void,
-    config?: AxiosRequestConfig<any>
-  ) => void;
-  put: (
-    body: object,
-    thenFn: (res: UseRequestResponse<Type>) => void,
-    catchFn: (err: UseRequestError) => void,
-    config?: AxiosRequestConfig<any>
-  ) => void;
-  patch: (
-    body: object,
-    thenFn: (res: UseRequestResponse<Type>) => void,
-    catchFn: (err: UseRequestError) => void,
-    config?: AxiosRequestConfig<any>
-  ) => void;
-  delete: (
-    thenFn: (res: UseRequestResponse<Type>) => void,
-    catchFn: (err: UseRequestError) => void,
-    config?: AxiosRequestConfig<any>
-  ) => void;
 };

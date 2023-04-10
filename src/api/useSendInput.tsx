@@ -1,15 +1,13 @@
+import axios from 'axios';
 import { useAlert } from 'react-styled-alert';
 import { Typography } from '@mui/material';
-import { useToken, useRequest } from 'hooks';
+import { useToken } from 'hooks';
 
 export function useSendInput() {
   const alert = useAlert();
   const { token } = useToken();
-  const upApi = useRequest('/input/up');
-  const rightApi = useRequest('/input/right');
-  const downApi = useRequest('/input/down');
-  const leftApi = useRequest('/input/left');
-  const bombApi = useRequest('/input/bomb');
+
+  const API_URL: string = import.meta.env.VITE_API_URL as string;
 
   const error = () => {
     alert(
@@ -22,43 +20,73 @@ export function useSendInput() {
   };
 
   const up = () => {
-    upApi.post({}, () => {}, error, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    axios
+      .post(
+        API_URL + '/input/up',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch(error);
   };
 
   const right = () => {
-    rightApi.post({}, () => {}, error, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    axios
+      .post(
+        API_URL + '/input/right',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch(error);
   };
 
   const down = () => {
-    downApi.post({}, () => {}, error, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    axios
+      .post(
+        API_URL + '/input/down',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch(error);
   };
 
   const left = () => {
-    leftApi.post({}, () => {}, error, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    axios
+      .post(
+        API_URL + '/input/left',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch(error);
   };
 
   const bomb = () => {
-    bombApi.post({}, () => {}, error, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    axios
+      .post(
+        API_URL + '/input/bomb',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch(error);
   };
 
   return [up, right, down, left, bomb] as [

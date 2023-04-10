@@ -50,6 +50,7 @@ export function useGetSession() {
       .catch((err) => setError(err.message));
   }, []);
 
+  // Get duration time for GET /sessions route only
   axios.interceptors.response.use((res) => {
     const startTime = res.config.headers['request-startTime'];
     if (startTime) {

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useAlert } from 'react-styled-alert';
 import { useTimeout } from 'react-timers-hooks';
 import { Typography } from '@mui/material';
-import { useRequest, useRoute } from 'hooks';
+import { useRoute } from 'hooks';
 import { Level } from 'types';
 
 export function useGetLevels() {
@@ -11,19 +12,20 @@ export function useGetLevels() {
   const [disconnectTimer, setDisconnectTimer] = useState<number>(0);
   const alert = useAlert();
   const { changeRoute } = useRoute();
-  const { get } = useRequest<Level[]>('/levels');
+
+  const API_URL: string = import.meta.env.VITE_API_URL as string;
 
   const request = () => {
-    get(
-      (res) => {
+    axios
+      .get(API_URL + '/levels')
+      .then((res) => {
         setDisconnectTimer(0);
         setLevels([...res.data]);
-      },
-      () => {
+      })
+      .catch(() => {
         setDisconnectTimer(15000);
         setTimer(200);
-      }
-    );
+      });
   };
 
   useEffect(request, []);

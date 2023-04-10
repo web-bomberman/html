@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useAlert } from 'react-styled-alert';
 import { Typography } from '@mui/material';
-import { useToken, useRequest } from 'hooks';
+import { useToken } from 'hooks';
 import { Level } from 'types';
 
 export function usePickLevel(levels: Level[] | null, gameLevel: string) {
+  const [loading, setLoading] = useState<boolean>(false);
   const [currentLevel, setCurrentLevel] = useState<Level | null>(null);
   const [newLevel, setNewLevel] = useState<string>('');
   const alert = useAlert();
-  const api = useRequest<Level>(`/sessions/pick-level/${newLevel}`);
   const { token } = useToken();
+
+  const API_URL: string = import.meta.env.VITE_API_URL as string;
 
   const getLevel = (name: string) => {
     if (!levels) return undefined;
@@ -17,26 +20,31 @@ export function usePickLevel(levels: Level[] | null, gameLevel: string) {
   };
 
   const request = () => {
-    api.post(
-      {},
-      (res) => {
+    setLoading(true);
+    axios
+      .post(
+        API_URL + `/sessions/pick-level/${newLevel}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setLoading(false);
         setNewLevel('');
         setCurrentLevel(res.data);
-      },
-      () => {
+      })
+      .catch(() => {
+        setLoading(false);
         setNewLevel('');
         alert(
           <Typography variant="body1" color="error" textAlign="center">
             Failed to select level
           </Typography>
         );
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+      });
   };
 
   useEffect(() => {
@@ -48,7 +56,7 @@ export function usePickLevel(levels: Level[] | null, gameLevel: string) {
     if (newLevel) request();
   }, [newLevel]);
 
-  return [api.loading, setNewLevel, currentLevel] as [
+  return [loading, setNewLevel, currentLevel] as [
     loading: boolean,
     pickLevel: (level: string) => void,
     level: Level | null

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useNotify } from 'react-observer-implementation';
 import { useTimeout } from 'react-timers-hooks';
 import { useAlert } from 'react-styled-alert';
-import { useRequest, useLoading } from 'hooks';
+import { useLoading } from 'hooks';
 import { Typography } from '@mui/material';
 
 export function useNewSession() {
@@ -15,7 +16,8 @@ export function useNewSession() {
   const startTransition = useNotify('route_changing');
   const finishTransition = useNotify('route_changed');
   const { startLoading, stopLoading } = useLoading();
-  const api = useRequest<{ session: string }>('/sessions/new');
+
+  const API_URL: string = import.meta.env.VITE_API_URL as string;
 
   useEffect(() => {
     if (sessionId && transitioned) navigate(`/${sessionId}`);
@@ -34,10 +36,10 @@ export function useNewSession() {
   return () => {
     startTransition();
     setTimer(500);
-    api.post(
-      {},
-      (res) => setSessionId(res.data.session),
-      (err) => {
+    axios
+      .post(API_URL + '/sessions/new')
+      .then((res) => setSessionId(res.data.session))
+      .catch((err) => {
         setTransitioned(false);
         stopLoading();
         setTimer(0);
@@ -47,7 +49,6 @@ export function useNewSession() {
             {err.message}
           </Typography>
         );
-      }
-    );
+      });
   };
 }
