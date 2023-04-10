@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import { useInterval, useTimeout } from 'react-timers-hooks';
 import { useAlert } from 'react-styled-alert';
 import { useNotify } from 'react-observer-implementation';
 import { Typography } from '@mui/material';
-import { useRequest, useToken, useLoading, useRoute } from 'hooks';
+import { useToken, useLoading, useRoute } from 'hooks';
 import { GameData } from 'types';
 
 const EMPTY_GAME_DATA: GameData = {
@@ -20,6 +21,7 @@ const EMPTY_GAME_DATA: GameData = {
 export function useGetSession() {
   const [game, setGame] = useState<GameData>({ ...EMPTY_GAME_DATA });
   const [player, setPlayer] = useState<1 | 2>(1);
+  const [ping, setPing] = useState<number>(0);
   const [error, setError] = useState<string>('');
   const [reconnecting, setReconnecting] = useState<boolean>(false);
   const [tickTimer, setTickTimer] = useState<number>(0);
@@ -32,36 +34,47 @@ export function useGetSession() {
   const { token, setToken } = useToken();
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { changeRoute } = useRoute();
-  const { get } = useRequest<{ game: GameData; player: 1 | 2 }>('/sessions');
-  const { post: connect } = useRequest<{ token: string; player: 1 | 2 }>(
-    `/sessions/connect/${sessionId}`
-  );
-  const { post: disconnect } = useRequest('/sessions/leave');
+
+  const API_URL: string = import.meta.env.VITE_API_URL as string;
 
   useEffect(() => {
     startLoading();
-    connect(
-      {},
-      (res) => {
+    axios
+      .post(API_URL + `/sessions/connect/${sessionId}`)
+      .then((res) => {
         setToken(res.data.token);
         setPlayer(res.data.player);
         setTickTimer(200);
         setCheckConnection(1000);
-      },
-      (err) => setError(err.message)
-    );
+      })
+      .catch((err) => setError(err.message));
   }, []);
+
+  axios.interceptors.response.use((res) => {
+    const startTime = res.config.headers['request-startTime'];
+    if (startTime) {
+      res.headers['request-duration'] = new Date().getTime() - startTime;
+    }
+    return res;
+  });
 
   useInterval(
     () => {
-      get(
-        (res) => {
+      axios
+        .get(API_URL + '/sessions', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'request-startTime': new Date().getTime(),
+          },
+        })
+        .then((res) => {
           if (isLoading()) stopLoading();
           setReconnecting(false);
           setReconnectTimer(0);
           setCheckConnectionTime(0);
           setGame({ ...res.data.game });
           setPlayer(res.data.player);
+          setPing(res.headers['request-duration']);
           if (
             // When you're player 2 and player 1 leaves, take player 1
             res.data.player === 2 &&
@@ -69,12 +82,20 @@ export function useGetSession() {
           ) {
             startLoading();
             setTickTimer(0);
-            disconnect(
-              {},
-              () => {
-                connect(
-                  {},
-                  (res) => {
+            axios
+              .post(
+                API_URL + '/sessions/leave',
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              )
+              .then(() => {
+                axios
+                  .post(API_URL + `/sessions/connect/${sessionId}`)
+                  .then((res) => {
                     setToken(res.data.token);
                     setPlayer(res.data.player);
                     setTickTimer(200);
@@ -90,8 +111,8 @@ export function useGetSession() {
                         {"you're player 1 now"}
                       </Typography>
                     );
-                  },
-                  () => {
+                  })
+                  .catch(() => {
                     changeRoute('/');
                     alert(
                       <Typography
@@ -102,46 +123,28 @@ export function useGetSession() {
                         Connection failed
                       </Typography>
                     );
-                  },
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                );
-              },
-              () => {
+                  });
+              })
+              .catch(() => {
                 changeRoute('/');
                 alert(
                   <Typography variant="body1" color="error" textAlign="center">
                     Connection failed
                   </Typography>
                 );
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
+              });
           } else if (res.data.game.state === 'interrupted') setTickTimer(0);
           else if (res.data.game.state === 'player1 won') setTickTimer(0);
           else if (res.data.game.state === 'player2 won') setTickTimer(0);
           else if (res.data.game.state === 'draw') setTickTimer(0);
-        },
-        (err) => {
+        })
+        .catch((err) => {
           if (err.message !== 'Session over') {
             setReconnecting(true);
             notifyDisconnected();
             setReconnectTimer(10000);
           }
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+        });
     },
     tickTimer ? tickTimer : null
   );
@@ -169,9 +172,10 @@ export function useGetSession() {
     reconnectTimer ? reconnectTimer : null
   );
 
-  return [game, player, error, reconnecting] as [
+  return [game, player, ping, error, reconnecting] as [
     game: GameData,
     player: 1 | 2,
+    ping: number,
     error: string,
     reconnecting: boolean
   ];

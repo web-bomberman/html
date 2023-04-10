@@ -14,7 +14,10 @@ export function useRequest<Type>(route: string): UseRequestReturn<Type> {
   const hookThen =
     (func: (hookRes: UseRequestResponse<Type>) => void) =>
     (res: AxiosResponse<any, any>) => {
-      func({ status: res.status, data: res.data as Type });
+      func({
+        status: res.status,
+        data: res.data as Type,
+      });
       setLoading(false);
     };
 

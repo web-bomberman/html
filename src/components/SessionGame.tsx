@@ -13,11 +13,16 @@ import Bomb from 'assets/bomb.svg';
 
 import { Container, SessionGameScreen, SessionGamePowerUps } from 'components';
 
-export function SessionGame(props: { player: 1 | 2; game: GameData }) {
+export function SessionGame(props: {
+  player: 1 | 2;
+  game: GameData;
+  ping: number;
+}) {
   const { player, game } = props;
   const [popup, setPopup] = useState<string>('');
   const alert = useAlert();
   const mediaQuery = useMediaQuery('(max-width: 1024px');
+  const screenSize = useMediaQuery('(max-width: 624px)');
   const [loadingLeave, leave] = useLeaveGame();
   const [upApi, rightApi, downApi, leftApi, bombApi] = useSendInput();
 
@@ -144,6 +149,14 @@ export function SessionGame(props: { player: 1 | 2; game: GameData }) {
         align-items: center;
       `}
     >
+      <Typography
+        variant="body1"
+        color="text.primary"
+        align="right"
+        sx={{ width: screenSize ? '100%' : '624px' }}
+      >
+        {`Ping: ${props.ping}ms`}
+      </Typography>
       <SessionGameScreen
         objects={game.gameObjects}
         size={game.size}

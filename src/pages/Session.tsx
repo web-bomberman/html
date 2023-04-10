@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import { Typography, Button } from '@mui/material';
 
 export function Session() {
-  const [game, player, error, reconnecting] = useGetSession();
+  const [game, player, ping, error, reconnecting] = useGetSession();
   const { changeRoute } = useRoute();
 
   const sessionComp = {
@@ -15,11 +15,11 @@ export function Session() {
         Get Ready!
       </Typography>
     ),
-    running: <SessionGame player={player} game={game} />,
-    interrupted: <SessionGame player={player} game={game} />,
-    'player1 won': <SessionGame player={player} game={game} />,
-    'player2 won': <SessionGame player={player} game={game} />,
-    draw: <SessionGame player={player} game={game} />,
+    running: <SessionGame player={player} game={game} ping={ping} />,
+    interrupted: <SessionGame player={player} game={game} ping={ping} />,
+    'player1 won': <SessionGame player={player} game={game} ping={ping} />,
+    'player2 won': <SessionGame player={player} game={game} ping={ping} />,
+    draw: <SessionGame player={player} game={game} ping={ping} />,
   };
 
   if (error)

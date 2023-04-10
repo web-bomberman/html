@@ -64,14 +64,6 @@ export type UseRequestError = {
   message: string;
 };
 
-export type UseRequestAborters = {
-  get: AbortController;
-  post: AbortController;
-  put: AbortController;
-  patch: AbortController;
-  delete: AbortController;
-};
-
 /* eslint @typescript-eslint/no-explicit-any: off */
 export type UseRequestReturn<Type> = {
   loading: boolean;
